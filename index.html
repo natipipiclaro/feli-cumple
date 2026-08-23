@@ -64,6 +64,7 @@
       transform-origin: left center;
       transition: transform 1s ease-in-out;
       border: 3px solid #3d2352;
+      background-image: url('1%20p.png');
       background-size: cover;
       background-position: center;
     }
@@ -280,15 +281,15 @@
       <!-- INTERIOR IZQUIERDA (CARTA) -->
       <div class="page page-left">
         <div class="envelope-wrapper">
-          <img class="envelope-img" id="envelopeImg" alt="Sobre" />
-          <img class="letter-img" id="letterImg" alt="Carta" />
+          <img class="envelope-img" id="envelopeImg" src="2 sobre.png" alt="Sobre" />
+          <img class="letter-img" id="letterImg" src="3 car.png" alt="Carta" />
         </div>
       </div>
 
       <!-- INTERIOR DERECHA (VELAS) -->
       <div class="page page-right">
         <div class="cake-wrapper">
-          <img class="cake-img" id="cakeImg" alt="Pastel" />
+          <img class="cake-img" id="cakeImg" src="4 pastel.png" alt="Pastel" />
           <div class="flame flame-1" id="flame1"></div>
           <div class="flame flame-2" id="flame2"></div>
         </div>
@@ -312,12 +313,6 @@
   <canvas id="confetti"></canvas>
 
   <script>
-    // ASIGNAR IMÁGENES COMPRIMIDAS
-    document.getElementById('pageCover').style.backgroundImage = 'url("input_file_0.png")';
-    document.getElementById('envelopeImg').src = 'input_file_1.png';
-    document.getElementById('letterImg').src = 'input_file_2.png';
-    document.getElementById('cakeImg').src = 'input_file_3.png';
-
     const cardBook = document.getElementById('cardBook');
     const closeBtn = document.getElementById('closeBtn');
     const letterImg = document.getElementById('letterImg');
