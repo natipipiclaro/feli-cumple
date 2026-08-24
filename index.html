@@ -1,569 +1,569 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>¡Feliz Cumpleaños Melvin!</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Feliz Cumpleaños Melvin!</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    body {
-      background: #0f081d;
-      font-family: 'Courier New', Courier, monospace;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow-x: hidden;
-      padding: 20px 0;
-    }
+    body {
+      background: #0f081d;
+      font-family: 'Courier New', Courier, monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      padding: 20px 0;
+    }
 
-    .btn-top {
-      background: #5b21b6;
-      color: #fff;
-      border: 1px solid #a855f7;
-      padding: 10px 18px;
-      font-family: inherit;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      box-shadow: 2px 2px 0px #000;
-      margin-bottom: 20px;
-      transition: all 0.2s;
-      z-index: 100;
-    }
+    .btn-top {
+      background: #5b21b6;
+      color: #fff;
+      border: 1px solid #a855f7;
+      padding: 10px 18px;
+      font-family: inherit;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 2px 2px 0px #000;
+      margin-bottom: 20px;
+      transition: all 0.2s;
+      z-index: 100;
+    }
 
-    .btn-top:hover {
-      background: #6d28d9;
-      transform: translateY(-2px);
-    }
+    .btn-top:hover {
+      background: #6d28d9;
+      transform: translateY(-2px);
+    }
 
-    .container {
-      perspective: 1600px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-    }
+    .container {
+      perspective: 1600px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
 
-    /* LIBRO */
-    .card-book {
-      width: 360px;
-      height: 520px;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 1s ease-in-out;
-      cursor: pointer;
-    }
+    /* LIBRO */
+    .card-book {
+      width: 360px;
+      height: 520px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1s ease-in-out;
+      cursor: pointer;
+    }
 
-    .card-book.open {
-      cursor: default;
-    }
+    .card-book.open {
+      cursor: default;
+    }
 
-    .page {
-      position: absolute;
-      width: 360px;
-      height: 520px;
-      top: 0;
-      border-radius: 8px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-      overflow: hidden;
-      backface-visibility: hidden;
-    }
+    .page {
+      position: absolute;
+      width: 360px;
+      height: 520px;
+      top: 0;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      overflow: hidden;
+      backface-visibility: hidden;
+    }
 
-    /* PORTADA (TAPA) */
-    .page-cover {
-      left: 0;
-      z-index: 10;
-      transform-origin: left center;
-      transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-      background-image: url('1%20p.png');
-      background-size: cover;
-      background-position: center;
-      border: 3px solid #3d2352;
-    }
+    /* PORTADA (TAPA) */
+    .page-cover {
+      left: 0;
+      z-index: 10;
+      transform-origin: left center;
+      transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+      background-image: url('1%20p.png');
+      background-size: cover;
+      background-position: center;
+      border: 3px solid #3d2352;
+    }
 
-    .card-book.open .page-cover {
-      transform: rotateY(-180deg);
-      pointer-events: none;
-    }
+    .card-book.open .page-cover {
+      transform: rotateY(-180deg);
+      pointer-events: none;
+    }
 
-    /* PÁGINAS INTERIORES */
-    .page-left {
-      left: 0;
-      background-color: #1f102b;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 3px solid #3d2352;
-      border-right: 2px solid #100618;
-      z-index: 1;
-      overflow: hidden;
-    }
+    /* PÁGINAS INTERIORES */
+    .page-left {
+      left: 0;
+      background-color: #1f102b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 3px solid #3d2352;
+      border-right: 2px solid #100618;
+      z-index: 1;
+      overflow: hidden;
+    }
 
-    .page-right {
-      left: 360px;
-      background-color: #1f102b;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border: 3px solid #3d2352;
-      border-left: 2px solid #100618;
-      z-index: 1;
-      opacity: 0;
-      transition: opacity 0.4s ease-in-out 0.4s;
-    }
+    .page-right {
+      left: 360px;
+      background-color: #1f102b;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid #3d2352;
+      border-left: 2px solid #100618;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out 0.4s;
+    }
 
-    .card-book.open .page-right {
-      opacity: 1;
-    }
+    .card-book.open .page-right {
+      opacity: 1;
+    }
 
-    /* SOBRE Y CARTA DENTRO DEL LIBRO */
-    .envelope-wrapper {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-    }
+    /* SOBRE Y CARTA DENTRO DEL LIBRO */
+    .envelope-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
 
-    .envelope-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 3;
-      pointer-events: none;
-    }
+    .envelope-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
 
-    .letter-img {
-      width: 82%;
-      height: auto;
-      max-height: 80%;
-      object-fit: contain;
-      position: absolute;
-      bottom: 40px;
-      z-index: 2;
-      transition: all 0.4s ease;
-      cursor: pointer;
-    }
+    .letter-img {
+      width: 82%;
+      height: auto;
+      max-height: 80%;
+      object-fit: contain;
+      position: absolute;
+      bottom: 40px;
+      z-index: 2;
+      transition: all 0.4s ease;
+      cursor: pointer;
+    }
 
-    /* CARTA EXTRAÍDA (MODAL LIMPIO EN PANTALLA COMPLETA) */
-    .letter-img.extracted {
-      position: fixed !important;
-      top: 50% !important;
-      left: 50% !important;
-      bottom: auto !important;
-      transform: translate(-50%, -50%) scale(1) !important;
-      width: auto !important;
-      max-width: 90vw !important;
-      height: auto !important;
-      max-height: 85vh !important;
-      object-fit: contain !important;
-      z-index: 9999 !important;
-      border-radius: 8px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.9);
-      background: transparent !important;
-      padding: 0 !important;
-      border: none !important;
-    }
+    /* CARTA EXTRAÍDA (MODAL LIMPIO EN PANTALLA COMPLETA) */
+    .letter-img.extracted {
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      bottom: auto !important;
+      transform: translate(-50%, -50%) scale(1) !important;
+      width: auto !important;
+      max-width: 90vw !important;
+      height: auto !important;
+      max-height: 85vh !important;
+      object-fit: contain !important;
+      z-index: 9999 !important;
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+      background: transparent !important;
+      padding: 0 !important;
+      border: none !important;
+    }
 
-    /* FONDO OSCURO QUE BORRA TODO LO DEMÁS */
-    .letter-backdrop {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(8, 4, 15, 0.92);
-      backdrop-filter: blur(4px);
-      z-index: 9998;
-      display: none;
-    }
+    /* FONDO OSCURO QUE BORRA TODO LO DEMÁS */
+    .letter-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(8, 4, 15, 0.92);
+      backdrop-filter: blur(4px);
+      z-index: 9998;
+      display: none;
+    }
 
-    .letter-backdrop.show {
-      display: block;
-    }
+    .letter-backdrop.show {
+      display: block;
+    }
 
-    /* PASTEL Y VELAS */
-    .cake-wrapper {
-      position: relative;
-      width: 320px;
-      height: 380px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+    /* PASTEL Y VELAS */
+    .cake-wrapper {
+      position: relative;
+      width: 320px;
+      height: 380px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-    .cake-img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
+    .cake-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
 
-    .flame {
-      position: absolute;
-      width: 16px;
-      height: 26px;
-      background: radial-gradient(ellipse at bottom, #ffffff 0%, #ffff00 35%, #ff3d00 80%, transparent 100%);
-      border-radius: 50% 50% 20% 20%;
-      filter: drop-shadow(0 0 8px #ffeb3b);
-      transition: transform 0.1s ease, opacity 0.4s ease;
-      transform-origin: bottom center;
-      animation: flicker 0.2s infinite alternate;
-      z-index: 4;
-    }
+    .flame {
+      position: absolute;
+      width: 16px;
+      height: 26px;
+      background: radial-gradient(ellipse at bottom, #ffffff 0%, #ffff00 35%, #ff3d00 80%, transparent 100%);
+      border-radius: 50% 50% 20% 20%;
+      filter: drop-shadow(0 0 8px #ffeb3b);
+      transition: transform 0.1s ease, opacity 0.4s ease;
+      transform-origin: bottom center;
+      animation: flicker 0.2s infinite alternate;
+      z-index: 4;
+    }
 
-    @keyframes flicker {
-      0% { transform: scale(1) rotate(-2deg); }
-      100% { transform: scale(1.1) rotate(2deg); }
-    }
+    @keyframes flicker {
+      0% { transform: scale(1) rotate(-2deg); }
+      100% { transform: scale(1.1) rotate(2deg); }
+    }
 
-    .flame-1 {
-      top: 85px;
-      left: 147px;
-    }
+    .flame-1 {
+      top: 85px;
+      left: 147px;
+    }
 
-    .flame-2 {
-      top: 90px;
-      left: 178px;
-    }
+    .flame-2 {
+      top: 90px;
+      left: 178px;
+    }
 
-    .flame.blowing {
-      transform: rotate(30deg) skewX(20deg) scaleY(0.7);
-    }
+    .flame.blowing {
+      transform: rotate(30deg) skewX(20deg) scaleY(0.7);
+    }
 
-    .flame.off {
-      opacity: 0 !important;
-      transform: scale(0) !important;
-      animation: none !important;
-    }
+    .flame.off {
+      opacity: 0 !important;
+      transform: scale(0) !important;
+      animation: none !important;
+    }
 
-    .mic-controls {
-      margin-top: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      color: #d8b4fe;
-      font-size: 11px;
-    }
+    .mic-controls {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: #d8b4fe;
+      font-size: 11px;
+    }
 
-    .meter-bar {
-      width: 150px;
-      height: 8px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 5px;
-      overflow: hidden;
-      border: 1px solid #a855f7;
-    }
+    .meter-bar {
+      width: 150px;
+      height: 8px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 5px;
+      overflow: hidden;
+      border: 1px solid #a855f7;
+    }
 
-    .meter-fill {
-      width: 0%;
-      height: 100%;
-      background: #a855f7;
-      transition: width 0.1s ease;
-    }
+    .meter-fill {
+      width: 0%;
+      height: 100%;
+      background: #a855f7;
+      transition: width 0.1s ease;
+    }
 
-    .btn-blow {
-      background: #5b21b6;
-      color: #fff;
-      border: 1px solid #a855f7;
-      padding: 8px 14px;
-      font-family: inherit;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      box-shadow: 2px 2px 0px #000;
-    }
+    .btn-blow {
+      background: #5b21b6;
+      color: #fff;
+      border: 1px solid #a855f7;
+      padding: 8px 14px;
+      font-family: inherit;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 2px 2px 0px #000;
+    }
 
-    .btn-blow:hover {
-      background: #6d28d9;
-    }
+    .btn-blow:hover {
+      background: #6d28d9;
+    }
 
-    .wish-message {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      background: rgba(22, 10, 38, 0.96);
-      border: 2px dashed #a855f7;
-      color: #fff;
-      padding: 22px;
-      text-align: center;
-      border-radius: 12px;
-      z-index: 20;
-      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-      width: 85%;
-    }
+    .wish-message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: rgba(22, 10, 38, 0.96);
+      border: 2px dashed #a855f7;
+      color: #fff;
+      padding: 22px;
+      text-align: center;
+      border-radius: 12px;
+      z-index: 20;
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      width: 85%;
+    }
 
-    .wish-message.show {
-      transform: translate(-50%, -50%) scale(1);
-    }
+    .wish-message.show {
+      transform: translate(-50%, -50%) scale(1);
+    }
 
-    .wish-message h2 {
-      color: #d8b4fe;
-      margin-bottom: 8px;
-      font-size: 18px;
-    }
+    .wish-message h2 {
+      color: #d8b4fe;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
 
-    canvas#confetti {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 99;
-    }
-  </style>
+    canvas#confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 99;
+    }
+  </style>
 </head>
 <body>
 
-  <button class="btn-top" id="closeBtn" style="display: none;">← Cerrar libro</button>
+  <button class="btn-top" id="closeBtn" style="display: none;">← Cerrar libro</button>
 
-  <div class="letter-backdrop" id="backdrop"></div>
+  <div class="letter-backdrop" id="backdrop"></div>
 
-  <div class="container">
-    <div class="card-book" id="cardBook">
-      
-      <!-- PORTADA -->
-      <div class="page page-cover" id="pageCover"></div>
+  <div class="container">
+    <div class="card-book" id="cardBook">
+      
+      <!-- PORTADA -->
+      <div class="page page-cover" id="pageCover"></div>
 
-      <!-- INTERIOR IZQUIERDA (CARTA ASOMANDO EN EL SOBRE) -->
-      <div class="page page-left">
-        <div class="envelope-wrapper">
-          <img class="letter-img" id="letterImg" src="3%20car.png" alt="Carta" />
-          <img class="envelope-img" id="envelopeImg" src="2%20sobre.png" alt="Sobre" />
-        </div>
-      </div>
+      <!-- INTERIOR IZQUIERDA (CARTA ASOMANDO EN EL SOBRE) -->
+      <div class="page page-left">
+        <div class="envelope-wrapper">
+          <img class="letter-img" id="letterImg" src="3%20car.png" alt="Carta" />
+          <img class="envelope-img" id="envelopeImg" src="2%20sobre.png" alt="Sobre" />
+        </div>
+      </div>
 
-      <!-- INTERIOR DERECHA (PASTEL Y VELAS) -->
-      <div class="page page-right">
-        <div class="cake-wrapper">
-          <img class="cake-img" id="cakeImg" src="4%20pastel.png" alt="Pastel" />
-          <div class="flame flame-1" id="flame1"></div>
-          <div class="flame flame-2" id="flame2"></div>
-        </div>
+      <!-- INTERIOR DERECHA (PASTEL Y VELAS) -->
+      <div class="page page-right">
+        <div class="cake-wrapper">
+          <img class="cake-img" id="cakeImg" src="4%20pastel.png" alt="Pastel" />
+          <div class="flame flame-1" id="flame1"></div>
+          <div class="flame flame-2" id="flame2"></div>
+        </div>
 
-        <div class="mic-controls">
-          <span>Sopla al micrófono o mantén presionado:</span>
-          <div class="meter-bar"><div class="meter-fill" id="meterFill"></div></div>
-          <button class="btn-blow" id="blowBtn">Soplar aquí (Sostener)</button>
-        </div>
+        <div class="mic-controls">
+          <span>Sopla al micrófono o mantén presionado:</span>
+          <div class="meter-bar"><div class="meter-fill" id="meterFill"></div></div>
+          <button class="btn-blow" id="blowBtn">Soplar aquí (Sostener)</button>
+        </div>
 
-        <div class="wish-message" id="wishMessage">
-          <h2>¡Ojalá la hayas pasado bien! ✨</h2>
-          <p>Que todos tus proyectos y metas se cumplan este año.</p>
-          <button class="btn-blow" id="resetCandlesBtn" style="margin-top: 12px;">Volver a encender</button>
-        </div>
-      </div>
+        <div class="wish-message" id="wishMessage">
+          <h2>¡Ojalá la hayas pasado bien! ✨</h2>
+          <p>Que todos tus proyectos y metas se cumplan este año.</p>
+          <button class="btn-blow" id="resetCandlesBtn" style="margin-top: 12px;">Volver a encender</button>
+        </div>
+      </div>
 
-    </div>
-  </div>
+    </div>
+  </div>
 
-  <canvas id="confetti"></canvas>
+  <canvas id="confetti"></canvas>
 
-  <script>
-    const cardBook = document.getElementById('cardBook');
-    const closeBtn = document.getElementById('closeBtn');
-    const letterImg = document.getElementById('letterImg');
-    const backdrop = document.getElementById('backdrop');
-    const flame1 = document.getElementById('flame1');
-    const flame2 = document.getElementById('flame2');
-    const meterFill = document.getElementById('meterFill');
-    const blowBtn = document.getElementById('blowBtn');
-    const wishMessage = document.getElementById('wishMessage');
-    const resetCandlesBtn = document.getElementById('resetCandlesBtn');
+  <script>
+    const cardBook = document.getElementById('cardBook');
+    const closeBtn = document.getElementById('closeBtn');
+    const letterImg = document.getElementById('letterImg');
+    const backdrop = document.getElementById('backdrop');
+    const flame1 = document.getElementById('flame1');
+    const flame2 = document.getElementById('flame2');
+    const meterFill = document.getElementById('meterFill');
+    const blowBtn = document.getElementById('blowBtn');
+    const wishMessage = document.getElementById('wishMessage');
+    const resetCandlesBtn = document.getElementById('resetCandlesBtn');
 
-    let candlesLit = true;
-    let blowTimer = null;
-    let blowProgress = 0;
+    let candlesLit = true;
+    let blowTimer = null;
+    let blowProgress = 0;
 
-    // Abrir libro
-    cardBook.addEventListener('click', (e) => {
-      if (!cardBook.classList.contains('open') && e.target !== letterImg) {
-        cardBook.classList.add('open');
-        closeBtn.style.display = 'block';
-        initMic();
-      }
-    });
+    // Abrir libro
+    cardBook.addEventListener('click', (e) => {
+      if (!cardBook.classList.contains('open') && e.target !== letterImg) {
+        cardBook.classList.add('open');
+        closeBtn.style.display = 'block';
+        initMic();
+      }
+    });
 
-    closeBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      cardBook.classList.remove('open');
-      closeBtn.style.display = 'none';
-      closeLetter();
-    });
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      cardBook.classList.remove('open');
+      closeBtn.style.display = 'none';
+      closeLetter();
+    });
 
-    // Abrir/Cerrar carta limpia en pantalla completa
-    letterImg.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (letterImg.classList.contains('extracted')) {
-        closeLetter();
-      } else {
-        letterImg.classList.add('extracted');
-        backdrop.classList.add('show');
-      }
-    });
+    // Abrir/Cerrar carta limpia en pantalla completa
+    letterImg.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (letterImg.classList.contains('extracted')) {
+        closeLetter();
+      } else {
+        letterImg.classList.add('extracted');
+        backdrop.classList.add('show');
+      }
+    });
 
-    backdrop.addEventListener('click', closeLetter);
+    backdrop.addEventListener('click', closeLetter);
 
-    function closeLetter() {
-      letterImg.classList.remove('extracted');
-      backdrop.classList.remove('show');
-    }
+    function closeLetter() {
+      letterImg.classList.remove('extracted');
+      backdrop.classList.remove('show');
+    }
 
-    let audioContext, analyser, microphone, stream;
+    let audioContext, analyser, microphone, stream;
 
-    async function initMic() {
-      try {
-        stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        analyser = audioContext.createAnalyser();
-        microphone = audioContext.createMediaStreamSource(stream);
-        microphone.connect(analyser);
-        analyser.fftSize = 256;
-        
-        const dataArray = new Uint8Array(analyser.frequencyBinCount);
-        
-        function checkVolume() {
-          if (!candlesLit) return;
-          analyser.getByteFrequencyData(dataArray);
-          let sum = 0;
-          for (let i = 0; i < dataArray.length; i++) {
-            sum += dataArray[i];
-          }
-          let average = sum / dataArray.length;
-          
-          if (average > 35) {
-            registerBlowing(true);
-          } else if (!isManualBlowing) {
-            registerBlowing(false);
-          }
-          requestAnimationFrame(checkVolume);
-        }
-        checkVolume();
-      } catch (err) {
-        console.log("Micrófono no activado. Usando botón manual.");
-      }
-    }
+    async function initMic() {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioContext.createAnalyser();
+        microphone = audioContext.createMediaStreamSource(stream);
+        microphone.connect(analyser);
+        analyser.fftSize = 256;
+        
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+        
+        function checkVolume() {
+          if (!candlesLit) return;
+          analyser.getByteFrequencyData(dataArray);
+          let sum = 0;
+          for (let i = 0; i < dataArray.length; i++) {
+            sum += dataArray[i];
+          }
+          let average = sum / dataArray.length;
+          
+          if (average > 35) {
+            registerBlowing(true);
+          } else if (!isManualBlowing) {
+            registerBlowing(false);
+          }
+          requestAnimationFrame(checkVolume);
+        }
+        checkVolume();
+      } catch (err) {
+        console.log("Micrófono no activado. Usando botón manual.");
+      }
+    }
 
-    let isManualBlowing = false;
+    let isManualBlowing = false;
 
-    function registerBlowing(isBlowing) {
-      if (!candlesLit) return;
+    function registerBlowing(isBlowing) {
+      if (!candlesLit) return;
 
-      if (isBlowing) {
-        flame1.classList.add('blowing');
-        flame2.classList.add('blowing');
-        blowProgress += 8;
-        meterFill.style.width = Math.min(100, blowProgress) + '%';
+      if (isBlowing) {
+        flame1.classList.add('blowing');
+        flame2.classList.add('blowing');
+        blowProgress += 8;
+        meterFill.style.width = Math.min(100, blowProgress) + '%';
 
-        if (blowProgress >= 100) {
-          extinguishCandles();
-        }
-      } else {
-        flame1.classList.remove('blowing');
-        flame2.classList.remove('blowing');
-        blowProgress = Math.max(0, blowProgress - 4);
-        meterFill.style.width = blowProgress + '%';
-      }
-    }
+        if (blowProgress >= 100) {
+          extinguishCandles();
+        }
+      } else {
+        flame1.classList.remove('blowing');
+        flame2.classList.remove('blowing');
+        blowProgress = Math.max(0, blowProgress - 4);
+        meterFill.style.width = blowProgress + '%';
+      }
+    }
 
-    function extinguishCandles() {
-      candlesLit = false;
-      flame1.classList.remove('blowing');
-      flame2.classList.remove('blowing');
-      flame1.classList.add('off');
-      flame2.classList.add('off');
-      meterFill.style.width = '100%';
-      
-      setTimeout(() => {
-        wishMessage.classList.add('show');
-        launchConfetti();
-      }, 300);
-    }
+    function extinguishCandles() {
+      candlesLit = false;
+      flame1.classList.remove('blowing');
+      flame2.classList.remove('blowing');
+      flame1.classList.add('off');
+      flame2.classList.add('off');
+      meterFill.style.width = '100%';
+      
+      setTimeout(() => {
+        wishMessage.classList.add('show');
+        launchConfetti();
+      }, 300);
+    }
 
-    function startManualBlow() {
-      isManualBlowing = true;
-      blowTimer = setInterval(() => {
-        registerBlowing(true);
-      }, 50);
-    }
+    function startManualBlow() {
+      isManualBlowing = true;
+      blowTimer = setInterval(() => {
+        registerBlowing(true);
+      }, 50);
+    }
 
-    function stopManualBlow() {
-      isManualBlowing = false;
-      clearInterval(blowTimer);
-      registerBlowing(false);
-    }
+    function stopManualBlow() {
+      isManualBlowing = false;
+      clearInterval(blowTimer);
+      registerBlowing(false);
+    }
 
-    blowBtn.addEventListener('mousedown', startManualBlow);
-    blowBtn.addEventListener('mouseup', stopManualBlow);
-    blowBtn.addEventListener('mouseleave', stopManualBlow);
-    blowBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startManualBlow(); });
-    blowBtn.addEventListener('touchend', stopManualBlow);
+    blowBtn.addEventListener('mousedown', startManualBlow);
+    blowBtn.addEventListener('mouseup', stopManualBlow);
+    blowBtn.addEventListener('mouseleave', stopManualBlow);
+    blowBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startManualBlow(); });
+    blowBtn.addEventListener('touchend', stopManualBlow);
 
-    resetCandlesBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      candlesLit = true;
-      flame1.classList.remove('off');
-      flame2.classList.remove('off');
-      wishMessage.classList.remove('show');
-      blowProgress = 0;
-      meterFill.style.width = '0%';
-    });
+    resetCandlesBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      candlesLit = true;
+      flame1.classList.remove('off');
+      flame2.classList.remove('off');
+      wishMessage.classList.remove('show');
+      blowProgress = 0;
+      meterFill.style.width = '0%';
+    });
 
-    function launchConfetti() {
-      const canvas = document.getElementById('confetti');
-      const ctx = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    function launchConfetti() {
+      const canvas = document.getElementById('confetti');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
-      const pieces = [];
-      const colors = ['#a855f7', '#c084fc', '#e91e63', '#3f51b5', '#00bcd4', '#ffeb3b', '#ff9800'];
+      const pieces = [];
+      const colors = ['#a855f7', '#c084fc', '#e91e63', '#3f51b5', '#00bcd4', '#ffeb3b', '#ff9800'];
 
-      for (let i = 0; i < 120; i++) {
-        pieces.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height - canvas.height,
-          size: Math.random() * 10 + 5,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          speed: Math.random() * 4 + 2,
-          rotation: Math.random() * 360
-        });
-      }
+      for (let i = 0; i < 120; i++) {
+        pieces.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          size: Math.random() * 10 + 5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speed: Math.random() * 4 + 2,
+          rotation: Math.random() * 360
+        });
+      }
 
-      function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        pieces.forEach((p) => {
-          ctx.save();
-          ctx.translate(p.x, p.y);
-          ctx.rotate((p.rotation * Math.PI) / 180);
-          ctx.fillStyle = p.color;
-          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-          ctx.restore();
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach((p) => {
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+          ctx.restore();
 
-          p.y += p.speed;
-          p.rotation += 2;
+          p.y += p.speed;
+          p.rotation += 2;
 
-          if (p.y > canvas.height) p.y = -10;
-        });
+          if (p.y > canvas.height) p.y = -10;
+        });
 
-        if (!candlesLit) requestAnimationFrame(draw);
-      }
-      draw();
-    }
-  </script>
+        if (!candlesLit) requestAnimationFrame(draw);
+      }
+      draw();
+    }
+  </script>
 </body>
 </html>
