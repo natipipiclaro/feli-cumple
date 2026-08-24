@@ -88,7 +88,6 @@
       border: 3px solid #3d2352;
     }
 
-    /* Al abrir, gira 180° y desaparece */
     .card-book.open .page-cover {
       transform: rotateY(-180deg);
       pointer-events: none;
@@ -104,6 +103,7 @@
       border: 3px solid #3d2352;
       border-right: 2px solid #100618;
       z-index: 1;
+      overflow: hidden;
     }
 
     .page-right {
@@ -124,21 +124,23 @@
       opacity: 1;
     }
 
-    /* SOBRE Y CARTA */
+    /* SOBRE Y CARTA DENTRO DEL LIBRO */
     .envelope-wrapper {
       position: relative;
-      width: 310px;
-      height: 460px;
+      width: 100%;
+      height: 100%;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-end;
     }
 
     .envelope-img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       position: absolute;
+      top: 0;
+      left: 0;
       z-index: 3;
       pointer-events: none;
     }
@@ -146,19 +148,50 @@
     .letter-img {
       width: 82%;
       height: auto;
+      max-height: 80%;
+      object-fit: contain;
       position: absolute;
-      top: 60px;
+      bottom: 40px;
       z-index: 2;
-      transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.4s ease;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     }
 
-    /* La carta sube y sale del sobre al dar clic */
+    /* CARTA EXTRAÍDA (MODAL LIMPIO EN PANTALLA COMPLETA) */
     .letter-img.extracted {
-      transform: translateY(-110px) scale(1.12);
-      z-index: 5;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      bottom: auto !important;
+      transform: translate(-50%, -50%) scale(1) !important;
+      width: auto !important;
+      max-width: 90vw !important;
+      height: auto !important;
+      max-height: 85vh !important;
+      object-fit: contain !important;
+      z-index: 9999 !important;
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+      background: transparent !important;
+      padding: 0 !important;
+      border: none !important;
+    }
+
+    /* FONDO OSCURO QUE BORRA TODO LO DEMÁS */
+    .letter-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(8, 4, 15, 0.92);
+      backdrop-filter: blur(4px);
+      z-index: 9998;
+      display: none;
+    }
+
+    .letter-backdrop.show {
+      display: block;
     }
 
     /* PASTEL Y VELAS */
@@ -195,14 +228,13 @@
       100% { transform: scale(1.1) rotate(2deg); }
     }
 
-    /* Ubicación exacta sobre las velitas del pastel */
     .flame-1 {
-      top: 130px;
+      top: 85px;
       left: 147px;
     }
 
     .flame-2 {
-      top: 135px;
+      top: 90px;
       left: 178px;
     }
 
@@ -272,7 +304,7 @@
       z-index: 20;
       transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-      width: 80%;
+      width: 85%;
     }
 
     .wish-message.show {
@@ -300,13 +332,15 @@
 
   <button class="btn-top" id="closeBtn" style="display: none;">← Cerrar libro</button>
 
+  <div class="letter-backdrop" id="backdrop"></div>
+
   <div class="container">
     <div class="card-book" id="cardBook">
       
-      <!-- PORTADA (Se abre como tapa) -->
+      <!-- PORTADA -->
       <div class="page page-cover" id="pageCover"></div>
 
-      <!-- INTERIOR IZQUIERDA (CARTA EN SOBRE) -->
+      <!-- INTERIOR IZQUIERDA (CARTA ASOMANDO EN EL SOBRE) -->
       <div class="page page-left">
         <div class="envelope-wrapper">
           <img class="letter-img" id="letterImg" src="3%20car.png" alt="Carta" />
@@ -329,7 +363,7 @@
         </div>
 
         <div class="wish-message" id="wishMessage">
-          <h2>¡Pide un deseo, Melvin! ✨</h2>
+          <h2>¡Ojalá la hayas pasado bien! ✨</h2>
           <p>Que todos tus proyectos y metas se cumplan este año.</p>
           <button class="btn-blow" id="resetCandlesBtn" style="margin-top: 12px;">Volver a encender</button>
         </div>
@@ -344,6 +378,7 @@
     const cardBook = document.getElementById('cardBook');
     const closeBtn = document.getElementById('closeBtn');
     const letterImg = document.getElementById('letterImg');
+    const backdrop = document.getElementById('backdrop');
     const flame1 = document.getElementById('flame1');
     const flame2 = document.getElementById('flame2');
     const meterFill = document.getElementById('meterFill');
@@ -355,7 +390,7 @@
     let blowTimer = null;
     let blowProgress = 0;
 
-    // Abrir libro al dar clic en la portada
+    // Abrir libro
     cardBook.addEventListener('click', (e) => {
       if (!cardBook.classList.contains('open') && e.target !== letterImg) {
         cardBook.classList.add('open');
@@ -368,14 +403,26 @@
       e.stopPropagation();
       cardBook.classList.remove('open');
       closeBtn.style.display = 'none';
-      letterImg.classList.remove('extracted');
+      closeLetter();
     });
 
-    // Extraer carta del sobre al hacer clic
+    // Abrir/Cerrar carta limpia en pantalla completa
     letterImg.addEventListener('click', (e) => {
       e.stopPropagation();
-      letterImg.classList.toggle('extracted');
+      if (letterImg.classList.contains('extracted')) {
+        closeLetter();
+      } else {
+        letterImg.classList.add('extracted');
+        backdrop.classList.add('show');
+      }
     });
+
+    backdrop.addEventListener('click', closeLetter);
+
+    function closeLetter() {
+      letterImg.classList.remove('extracted');
+      backdrop.classList.remove('show');
+    }
 
     let audioContext, analyser, microphone, stream;
 
