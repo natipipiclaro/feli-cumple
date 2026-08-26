@@ -3,960 +3,1398 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
 <title>Feliz cumpleaños, Melvin</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-  :root{
-    --purple-1:#3a1a52;
-    --purple-2:#241033;
-    --purple-3:#150a20;
-    --ink:#3a2b1c;
-    --gold:#d4a017;
-    --wine:#7a2333;
-    --cream:#f3e6c9;
-    --gap:2.5%;
-    --page-w:min(96vw,160vh,1200px);
-  }
-
-  *{
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
-  }
-
-  html,body{
-    margin:0;
-    padding:0;
-    min-height:100%;
-    font-family:'Nunito',sans-serif;
-    color:var(--ink);
-    overflow-x:hidden;
-  }
-
-  body{
-    background:
-      radial-gradient(ellipse at 20% 15%,rgba(150,90,200,.20),transparent 45%),
-      radial-gradient(ellipse at 85% 85%,rgba(0,0,0,.35),transparent 50%),
-      repeating-linear-gradient(
-        0deg,
-        rgba(255,255,255,.012) 0px,
-        rgba(255,255,255,.012) 1px,
-        transparent 1px,
-        transparent 3px
-      ),
-      repeating-linear-gradient(
-        90deg,
-        rgba(255,255,255,.01) 0px,
-        rgba(255,255,255,.01) 1px,
-        transparent 1px,
-        transparent 3px
-      ),
-      linear-gradient(
-        160deg,
-        var(--purple-1),
-        var(--purple-2) 55%,
-        var(--purple-3)
-      );
-
-    min-height:100vh;
-    min-height:100dvh;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    padding:14px 0 20px;
-    position:relative;
-  }
-
-  body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    opacity:.35;
-    mix-blend-mode:overlay;
-
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  }
-
-  .stage{
-    position:relative;
-    width:var(--page-w);
-    max-width:96vw;
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-  }
-
-  /* =========================
-     BOTÓN VOLVER
-     ========================= */
-
-  .backbtn{
-    display:flex;
-    align-items:center;
-    gap:6px;
-
-    margin:0 0 12px;
-
-    width:fit-content;
-
-    background:var(--cream);
-    border:2px solid var(--ink);
-    color:var(--ink);
-
-    font-family:'Nunito',sans-serif;
-    font-weight:700;
-    font-size:.85rem;
 
-    padding:7px 14px 7px 10px;
-    border-radius:999px;
+:root{
+  --purple-1:#3a1a52;
+  --purple-2:#241033;
+  --purple-3:#150a20;
+  --ink:#3a2b1c;
+  --gold:#d4a017;
+  --wine:#7a2333;
+  --cream:#f3e6c9;
 
-    cursor:pointer;
+  --gap:2.5%;
 
-    box-shadow:0 3px 0 rgba(0,0,0,.25);
+  /* MISMO TAMAÑO */
+  --page-w:min(96vw,160vh,1200px);
+}
 
-    transition:
-      transform 150ms ease,
-      opacity 250ms ease;
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
 
-    opacity:0;
-    pointer-events:none;
-  }
+html,
+body{
+  margin:0;
+  padding:0;
+  min-height:100%;
 
-  .backbtn.visible{
-    opacity:1;
-    pointer-events:auto;
-  }
+  font-family:'Nunito',sans-serif;
 
-  .backbtn:active{
-    transform:translateY(2px);
-    box-shadow:0 1px 0 rgba(0,0,0,.25);
-  }
+  color:var(--ink);
 
-  /* =========================
-     LIENZO
-     ========================= */
+  overflow-x:hidden;
+}
 
-  .canvas{
-    position:relative;
-    width:100%;
-    aspect-ratio:2.0513 / 1;
-  }
+body{
 
-  /* =========================
-     LAS DOS HOJAS INTERIORES
-     ========================= */
+  background:
+    radial-gradient(
+      ellipse at 20% 15%,
+      rgba(150,90,200,.20),
+      transparent 45%
+    ),
 
-  .diptych{
-    position:absolute;
-    inset:0;
+    radial-gradient(
+      ellipse at 85% 85%,
+      rgba(0,0,0,.35),
+      transparent 50%
+    ),
 
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    column-gap:var(--gap);
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.012) 0px,
+      rgba(255,255,255,.012) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
 
-    align-items:center;
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,.01) 0px,
+      rgba(255,255,255,.01) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
 
-    opacity:0;
-    transform:scale(.96);
+    linear-gradient(
+      160deg,
+      var(--purple-1),
+      var(--purple-2) 55%,
+      var(--purple-3)
+    );
 
-    transition:
-      opacity 500ms ease 180ms,
-      transform 700ms cubic-bezier(.2,.8,.2,1) 180ms;
-  }
+  min-height:100vh;
+  min-height:100dvh;
 
-  .canvas.open .diptych{
-    opacity:1;
-    transform:scale(1);
-  }
+  display:flex;
 
-  .page{
-    position:relative;
-    width:100%;
-    aspect-ratio:1 / 1;
+  align-items:center;
+  justify-content:center;
 
-    background:var(--cream);
+  padding:14px 0 20px;
 
-    border:1px solid rgba(0,0,0,.15);
+  position:relative;
+}
 
-    box-shadow:0 6px 14px rgba(0,0,0,.35);
 
-    overflow:hidden;
-  }
+/* =========================
+   TEXTURA
+========================= */
 
-  #envPage{
-    cursor:pointer;
+body::before{
 
-    border-radius:5px 2px 2px 5px;
+  content:"";
 
-    box-shadow:
-      0 6px 14px rgba(0,0,0,.35),
-      inset -8px 0 14px -10px rgba(0,0,0,.55);
-  }
+  position:fixed;
 
-  #cakePage{
-    border-radius:2px 5px 5px 2px;
+  inset:0;
 
-    box-shadow:
-      0 6px 14px rgba(0,0,0,.35),
-      inset 8px 0 14px -10px rgba(0,0,0,.55);
-  }
+  pointer-events:none;
 
-  /* =========================
-     PORTADA
-     ========================= */
+  opacity:.35;
 
-  .cover-layer{
-    position:absolute;
-    inset:0;
+  mix-blend-mode:overlay;
 
-    display:flex;
-    align-items:center;
-    justify-content:flex-start;
+  background-image:url(
+    "data:image/svg+xml;utf8,
+    <svg xmlns='http://www.w3.org/2000/svg'
+    width='120'
+    height='120'>
 
-    z-index:20;
+    <filter id='n'>
 
-    perspective:1800px;
+      <feTurbulence
+        type='fractalNoise'
+        baseFrequency='0.85'
+        numOctaves='2'
+        stitchTiles='stitch'
+      />
 
-    cursor:pointer;
+      <feColorMatrix
+        type='matrix'
+        values='
+        0 0 0 0 0
+        0 0 0 0 0
+        0 0 0 0 0
+        0 0 0 0.06 0
+        '
+      />
 
-    transition:opacity 480ms ease 300ms;
-  }
+    </filter>
 
-  .canvas.open .cover-layer{
-    pointer-events:none;
-    opacity:1;
-  }
+    <rect
+      width='100%'
+      height='100%'
+      filter='url(%23n)'
+    />
 
-  .cover-card{
-    position:relative;
+    </svg>"
+  );
+}
 
-    width:calc((100% - var(--gap)) / 2);
-    aspect-ratio:1 / 1;
 
-    /*
-      LA BISAGRA ESTÁ EN EL LADO IZQUIERDO
-    */
-    border-radius:5px 2px 2px 5px;
+/* =========================
+   ESCENARIO
+========================= */
 
-    background:#1a0f22;
+.stage{
 
-    border:1px solid rgba(255,255,255,.12);
+  position:relative;
 
-    box-shadow:
-      0 0 0 1px rgba(255,255,255,.04) inset,
-      0 18px 46px rgba(0,0,0,.55),
-      0 0 40px rgba(140,80,190,.18);
+  width:var(--page-w);
 
-    transform:rotateY(0deg);
+  max-width:96vw;
 
-    /*
-      PUNTO DE GIRO:
-      BORDE IZQUIERDO
-    */
-    transform-origin:left center;
+  display:flex;
 
-    transform-style:preserve-3d;
+  flex-direction:column;
 
-    backface-visibility:hidden;
+  align-items:center;
+}
 
-    transition:
-      transform 900ms cubic-bezier(.22,.75,.2,1);
 
-    overflow:hidden;
-  }
+/* =========================
+   BOTÓN VOLVER
+========================= */
 
-  .cover-card img{
-    position:absolute;
-    inset:0;
+.backbtn{
 
-    width:100%;
-    height:100%;
+  display:flex;
 
-    object-fit:contain;
-  }
+  align-items:center;
 
-  .cover-tape{
-    position:absolute;
+  gap:6px;
 
-    top:-10px;
-    left:50%;
+  margin:0 0 12px;
 
-    width:34%;
-    height:24px;
+  width:fit-content;
 
-    margin-left:-17%;
+  background:var(--cream);
 
-    background:
-      linear-gradient(
-        180deg,
-        rgba(255,255,255,.45),
-        rgba(255,255,255,.28)
-      );
+  border:2px solid var(--ink);
 
-    border:1px solid rgba(255,255,255,.35);
+  color:var(--ink);
 
-    box-shadow:0 2px 4px rgba(0,0,0,.25);
+  font-family:'Nunito',sans-serif;
 
-    transform:rotate(-3deg);
+  font-weight:700;
 
-    opacity:.7;
+  font-size:.85rem;
 
-    pointer-events:none;
+  padding:7px 14px 7px 10px;
 
-    z-index:2;
-  }
+  border-radius:999px;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 3px 0 rgba(0,0,0,.25);
+
+  transition:
+    transform 150ms ease,
+    opacity 250ms ease;
+
+  opacity:0;
+
+  pointer-events:none;
+}
+
+.backbtn.visible{
+
+  opacity:1;
+
+  pointer-events:auto;
+}
+
+.backbtn:active{
+
+  transform:translateY(2px);
+
+  box-shadow:
+    0 1px 0 rgba(0,0,0,.25);
+}
+
+
+/* =========================
+   LIENZO
+========================= */
+
+.canvas{
+
+  position:relative;
+
+  width:100%;
 
   /*
-    AL ABRIR:
-    LA PORTADA GIRA DESDE LA BISAGRA
-    DEL LADO IZQUIERDO.
+    MISMA PROPORCIÓN:
+    DOS PÁGINAS CUADRADAS
   */
 
-  .canvas.open .cover-card{
-    transform:rotateY(-180deg);
-  }
+  aspect-ratio:2.0513 / 1;
+}
 
-  .canvas.open .cover-layer{
-    pointer-events:none;
-  }
 
-  /* =========================
-     TEXTO DE AYUDA
-     ========================= */
+/* =========================
+   LAS DOS HOJAS INTERIORES
+========================= */
 
-  .hint{
-    text-align:center;
+.diptych{
 
-    margin-top:14px;
+  position:absolute;
 
-    font-family:'Caveat',cursive;
-    font-size:1.5rem;
+  inset:0;
 
-    color:var(--cream);
+  display:grid;
 
-    text-shadow:
-      0 2px 10px rgba(150,90,200,.5);
+  grid-template-columns:1fr 1fr;
 
-    opacity:.92;
+  column-gap:var(--gap);
 
-    animation:float 2.4s ease-in-out infinite;
+  align-items:center;
 
-    transition:opacity 300ms ease;
-  }
+  opacity:0;
 
-  .hint.hidden{
-    opacity:0;
-  }
+  transform:scale(.96);
 
-  @keyframes float{
-    0%,100%{
-      transform:translateY(0);
-    }
+  transition:
+    opacity 500ms ease 180ms,
+    transform 700ms
+      cubic-bezier(.2,.8,.2,1)
+      180ms;
+}
 
-    50%{
-      transform:translateY(-5px);
-    }
-  }
+.canvas.open .diptych{
 
-  /* =========================
-     PÁGINA IZQUIERDA
-     ========================= */
+  opacity:1;
 
-  .env-wrap{
-    position:absolute;
-    inset:0;
+  transform:scale(1);
+}
 
-    width:100%;
-    height:100%;
-  }
 
-  .env-wrap img.env-bg{
-    position:absolute;
-    inset:0;
+/* =========================
+   PÁGINAS
+========================= */
 
-    width:100%;
-    height:100%;
+.page{
 
-    object-fit:contain;
-  }
+  position:relative;
 
-  .letter-card{
-    position:absolute;
+  width:100%;
 
-    left:50%;
-    top:22%;
+  aspect-ratio:1 / 1;
 
-    width:58%;
+  background:var(--cream);
+
+  border:1px solid rgba(0,0,0,.15);
+
+  box-shadow:
+    0 6px 14px rgba(0,0,0,.35);
+
+  overflow:hidden;
+}
+
+
+/* PÁGINA IZQUIERDA */
+
+#envPage{
+
+  cursor:pointer;
+
+  border-radius:
+    5px 2px 2px 5px;
+
+  box-shadow:
+    0 6px 14px rgba(0,0,0,.35),
+    inset -8px 0 14px -10px
+      rgba(0,0,0,.55);
+}
+
+
+/* PÁGINA DERECHA */
+
+#cakePage{
+
+  border-radius:
+    2px 5px 5px 2px;
+
+  box-shadow:
+    0 6px 14px rgba(0,0,0,.35),
+    inset 8px 0 14px -10px
+      rgba(0,0,0,.55);
+}
+
+
+/* =========================
+   PORTADA
+========================= */
+
+.cover-layer{
+
+  position:absolute;
+
+  inset:0;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:flex-start;
+
+  z-index:20;
+
+  perspective:1800px;
+
+  cursor:pointer;
+}
+
+
+.cover-card{
+
+  position:relative;
+
+  /*
+    EXACTAMENTE EL MISMO TAMAÑO
+    QUE UNA DE LAS DOS HOJAS
+  */
+
+  width:
+    calc(
+      (100% - var(--gap)) / 2
+    );
+
+  aspect-ratio:1 / 1;
+
+  border-radius:
+    5px 2px 2px 5px;
+
+  background:#1a0f22;
+
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  box-shadow:
+
+    0 0 0 1px
+      rgba(255,255,255,.04)
+      inset,
+
+    0 18px 46px
+      rgba(0,0,0,.55),
+
+    0 0 40px
+      rgba(140,80,190,.18);
+
+  transform:rotateY(0deg);
+
+  /*
+    IMPORTANTE:
+    LA BISAGRA ESTÁ
+    EN EL LADO IZQUIERDO
+  */
+
+  transform-origin:left center;
+
+  transform-style:preserve-3d;
+
+  backface-visibility:hidden;
+
+  transition:
+    transform
+    900ms
+    cubic-bezier(.22,.75,.2,1);
+
+  overflow:hidden;
+}
+
+
+/* IMAGEN DE PORTADA */
+
+.cover-card img{
+
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+
+  height:100%;
+
+  object-fit:contain;
+}
+
+
+/* CINTA */
+
+.cover-tape{
+
+  position:absolute;
+
+  top:-10px;
+
+  left:50%;
+
+  width:34%;
+
+  height:24px;
+
+  margin-left:-17%;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.45),
+      rgba(255,255,255,.28)
+    );
+
+  border:
+    1px solid
+    rgba(255,255,255,.35);
+
+  box-shadow:
+    0 2px 4px
+    rgba(0,0,0,.25);
+
+  transform:
+    rotate(-3deg);
+
+  opacity:.7;
+
+  pointer-events:none;
+
+  z-index:2;
+}
+
+
+/* =========================
+   APERTURA DE PORTADA
+========================= */
+
+/*
+   BISAGRA:
+   IZQUIERDA
+
+   LA PORTADA GIRA
+   HACIA DELANTE.
+*/
+
+.canvas.open .cover-card{
+
+  transform:
+    rotateY(-180deg);
+}
+
+
+.canvas.open .cover-layer{
+
+  pointer-events:none;
+}
+
+
+/* =========================
+   TEXTO
+========================= */
+
+.hint{
+
+  text-align:center;
+
+  margin-top:14px;
+
+  font-family:'Caveat',cursive;
+
+  font-size:1.5rem;
+
+  color:var(--cream);
+
+  text-shadow:
+    0 2px 10px
+    rgba(150,90,200,.5);
+
+  opacity:.92;
+
+  animation:
+    float 2.4s
+    ease-in-out
+    infinite;
+
+  transition:
+    opacity 300ms ease;
+}
+
+.hint.hidden{
+
+  opacity:0;
+}
+
+
+@keyframes float{
+
+  0%,
+  100%{
 
     transform:
-      translate(-50%,-10%)
-      scale(.16)
-      rotate(-6deg);
+      translateY(0);
 
-    opacity:0;
-
-    z-index:2;
-
-    transition:
-      left 620ms cubic-bezier(.2,.8,.2,1.15),
-      top 620ms cubic-bezier(.2,.8,.2,1.15),
-      transform 620ms cubic-bezier(.2,.8,.2,1.15),
-      opacity 420ms ease;
-
-    pointer-events:none;
   }
 
-  .letter-card img{
-    display:block;
-
-    width:100%;
-
-    border-radius:3px;
-
-    box-shadow:
-      0 16px 30px rgba(0,0,0,.35);
-  }
-
-  #envPage.open .letter-card{
-    left:50%;
-    top:50%;
+  50%{
 
     transform:
-      translate(-50%,-50%)
-      scale(1)
-      rotate(-1.2deg);
+      translateY(-5px);
 
-    opacity:1;
+  }
+}
 
-    pointer-events:auto;
+
+/* =========================
+   SOBRE
+========================= */
+
+.env-wrap{
+
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+
+  height:100%;
+}
+
+
+.env-wrap img.env-bg{
+
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+
+  height:100%;
+
+  object-fit:contain;
+
+  transition:
+    opacity 400ms ease;
+}
+
+
+/* =========================
+   CARTA
+========================= */
+
+.letter-card{
+
+  position:absolute;
+
+  left:50%;
+
+  top:22%;
+
+  width:58%;
+
+  transform:
+    translate(-50%,-10%)
+    scale(.16)
+    rotate(-6deg);
+
+  opacity:0;
+
+  z-index:2;
+
+  transition:
+
+    left 620ms
+      cubic-bezier(.2,.8,.2,1.15),
+
+    top 620ms
+      cubic-bezier(.2,.8,.2,1.15),
+
+    transform 620ms
+      cubic-bezier(.2,.8,.2,1.15),
+
+    opacity 420ms ease;
+
+  pointer-events:none;
+}
+
+
+.letter-card img{
+
+  display:block;
+
+  width:100%;
+
+  border-radius:3px;
+
+  box-shadow:
+    0 16px 30px
+    rgba(0,0,0,.35);
+}
+
+
+#envPage.open .letter-card{
+
+  left:50%;
+
+  top:50%;
+
+  transform:
+    translate(-50%,-50%)
+    scale(1)
+    rotate(-1.2deg);
+
+  opacity:1;
+
+  pointer-events:auto;
+}
+
+
+#envPage.open .env-bg{
+
+  opacity:.2;
+}
+
+
+.tap-label{
+
+  position:absolute;
+
+  bottom:3%;
+
+  left:50%;
+
+  transform:
+    translateX(-50%);
+
+  font-family:'Caveat',cursive;
+
+  font-size:1.05rem;
+
+  color:var(--ink);
+
+  background:
+    rgba(255,255,255,.55);
+
+  padding:2px 12px;
+
+  border-radius:999px;
+
+  white-space:nowrap;
+
+  pointer-events:none;
+
+  transition:
+    opacity 300ms ease;
+}
+
+
+#envPage.open .tap-label{
+
+  opacity:0;
+}
+
+
+/* =========================
+   PASTEL
+========================= */
+
+.cake-wrap{
+
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+
+  height:100%;
+}
+
+
+.cake-wrap img.cake-bg{
+
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+
+  height:100%;
+
+  object-fit:contain;
+}
+
+
+/* =========================
+   LLAMAS
+========================= */
+
+.flame{
+
+  position:absolute;
+
+  transform-origin:
+    50% 100%;
+
+  animation:
+    flicker 1.6s
+    ease-in-out
+    infinite;
+
+  transition:
+    opacity 160ms linear;
+}
+
+
+.flame img{
+
+  display:block;
+
+  width:100%;
+
+  height:100%;
+}
+
+
+/*
+  POSICIONES DE LAS VELAS
+*/
+
+.flame.f1{
+
+  left:41.13%;
+
+  top:16.05%;
+
+  width:8.6%;
+
+  height:10.45%;
+
+  animation-delay:0s;
+}
+
+
+.flame.f2{
+
+  left:55.83%;
+
+  top:18.5%;
+
+  width:6.35%;
+
+  height:9.5%;
+
+  animation-delay:.35s;
+}
+
+
+@keyframes flicker{
+
+  0%,
+  100%{
+
+    transform:
+      rotate(-2.5deg)
+      scaleY(1);
+
   }
 
-  #envPage.open .env-bg{
-    opacity:.2;
+  25%{
+
+    transform:
+      rotate(2deg)
+      scaleY(.97);
+
   }
 
-  .env-bg{
-    transition:opacity 400ms ease;
+  50%{
+
+    transform:
+      rotate(-1deg)
+      scaleY(1.03);
+
   }
 
-  .tap-label{
-    position:absolute;
+  75%{
 
-    bottom:3%;
-    left:50%;
+    transform:
+      rotate(3deg)
+      scaleY(.98);
 
-    transform:translateX(-50%);
+  }
+}
 
-    font-family:'Caveat',cursive;
-    font-size:1.05rem;
 
-    color:var(--ink);
+.flame.blowing{
 
-    background:rgba(255,255,255,.55);
+  animation:none !important;
+}
 
-    padding:2px 12px;
 
-    border-radius:999px;
+.flame.out{
 
-    white-space:nowrap;
+  opacity:0 !important;
 
-    pointer-events:none;
+  transition:
+    opacity 260ms ease,
+    transform 260ms ease;
+}
 
-    transition:opacity 300ms ease;
+
+/* =========================
+   MICRÓFONO
+========================= */
+
+.mic-ui{
+
+  position:absolute;
+
+  left:50%;
+
+  bottom:2%;
+
+  transform:
+    translateX(-50%);
+
+  width:92%;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  gap:3px;
+
+  z-index:6;
+
+  background:
+    rgba(20,10,15,.4);
+
+  border-radius:12px;
+
+  padding:
+    6px 8px 7px;
+}
+
+
+.mic-row{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:5px;
+
+  font-size:.58rem;
+
+  line-height:1;
+
+  color:var(--cream);
+
+  opacity:.95;
+
+  white-space:nowrap;
+}
+
+
+.mic-dot{
+
+  width:7px;
+
+  height:7px;
+
+  flex:0 0 auto;
+
+  border-radius:50%;
+
+  background:#8fd18f;
+
+  box-shadow:
+    0 0 4px
+    rgba(143,209,143,.9);
+}
+
+
+.mic-dot.off{
+
+  background:#c96a5a;
+
+  box-shadow:
+    0 0 4px
+    rgba(201,106,90,.7);
+}
+
+
+.meter{
+
+  width:54px;
+
+  height:6px;
+
+  flex:0 0 auto;
+
+  background:
+    rgba(0,0,0,.25);
+
+  border-radius:6px;
+
+  overflow:hidden;
+
+  border:
+    1px solid
+    rgba(255,255,255,.3);
+}
+
+
+.meter.hidden{
+
+  display:none;
+}
+
+
+.meter-fill{
+
+  height:100%;
+
+  width:0%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #7fc97f,
+      #f6c453,
+      #e0553b
+    );
+
+  transition:
+    width 60ms linear;
+}
+
+
+.hold-btn{
+
+  font-family:'Nunito',sans-serif;
+
+  font-weight:800;
+
+  font-size:.62rem;
+
+  line-height:1.15;
+
+  color:#fff;
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--wine),
+      #5c1a26
+    );
+
+  border:none;
+
+  padding:6px 12px;
+
+  border-radius:999px;
+
+  box-shadow:
+    0 3px 0 #3f0f18;
+
+  cursor:pointer;
+
+  user-select:none;
+
+  -webkit-user-select:none;
+
+  touch-action:none;
+
+  transition:
+    transform 90ms ease,
+    box-shadow 90ms ease;
+
+  max-width:100%;
+}
+
+
+.hold-btn:active,
+.hold-btn.pressed{
+
+  transform:
+    translateY(2px);
+
+  box-shadow:
+    0 1px 0 #3f0f18;
+}
+
+
+.mic-note{
+
+  font-size:.52rem;
+
+  text-align:center;
+
+  color:var(--cream);
+
+  opacity:.85;
+
+  max-width:100%;
+
+  line-height:1.2;
+}
+
+
+.mic-note:empty{
+
+  display:none;
+}
+
+
+/* =========================
+   DESEO
+========================= */
+
+.wish-overlay{
+
+  position:absolute;
+
+  inset:0;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:14px;
+
+  background:
+    rgba(243,230,201,.92);
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:
+    opacity 420ms ease;
+
+  z-index:9;
+
+  text-align:center;
+
+  padding:10%;
+}
+
+
+.wish-overlay.show{
+
+  opacity:1;
+
+  pointer-events:auto;
+}
+
+
+.wish-overlay h2{
+
+  font-family:'Caveat',cursive;
+
+  font-size:1.7rem;
+
+  margin:0;
+
+  color:var(--wine);
+}
+
+
+.relight-btn{
+
+  font-family:'Nunito',sans-serif;
+
+  font-weight:800;
+
+  font-size:.75rem;
+
+  color:var(--ink);
+
+  background:var(--gold);
+
+  border:
+    2px solid var(--ink);
+
+  padding:8px 14px;
+
+  border-radius:999px;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 3px 0
+    rgba(0,0,0,.3);
+}
+
+
+.relight-btn:active{
+
+  transform:
+    translateY(2px);
+
+  box-shadow:none;
+}
+
+
+/* =========================
+   CONFETI
+========================= */
+
+#confetti-canvas{
+
+  position:fixed;
+
+  inset:0;
+
+  pointer-events:none;
+
+  z-index:50;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:380px){
+
+  .wish-overlay h2{
+
+    font-size:1.35rem;
+
   }
 
-  #envPage.open .tap-label{
-    opacity:0;
-  }
+}
 
-  /* =========================
-     PÁGINA DERECHA / PASTEL
-     ========================= */
-
-  .cake-wrap{
-    position:absolute;
-    inset:0;
-
-    width:100%;
-    height:100%;
-  }
-
-  .cake-wrap img.cake-bg{
-    position:absolute;
-    inset:0;
-
-    width:100%;
-    height:100%;
-
-    object-fit:contain;
-  }
-
-  /* =========================
-     LLAMAS
-     ========================= */
-
-  .flame{
-    position:absolute;
-
-    transform-origin:50% 100%;
-
-    animation:flicker 1.6s ease-in-out infinite;
-
-    transition:opacity 160ms linear;
-  }
-
-  .flame img{
-    display:block;
-
-    width:100%;
-    height:100%;
-  }
-
-  .flame.f1{
-    left:41.13%;
-    top:16.05%;
-
-    width:8.6%;
-    height:10.45%;
-
-    animation-delay:0s;
-  }
-
-  .flame.f2{
-    left:55.83%;
-    top:18.5%;
-
-    width:6.35%;
-    height:9.5%;
-
-    animation-delay:.35s;
-  }
-
-  @keyframes flicker{
-    0%,100%{
-      transform:rotate(-2.5deg) scaleY(1);
-    }
-
-    25%{
-      transform:rotate(2deg) scaleY(.97);
-    }
-
-    50%{
-      transform:rotate(-1deg) scaleY(1.03);
-    }
-
-    75%{
-      transform:rotate(3deg) scaleY(.98);
-    }
-  }
-
-  .flame.blowing{
-    animation:none !important;
-  }
-
-  .flame.out{
-    opacity:0 !important;
-
-    transition:
-      opacity 260ms ease,
-      transform 260ms ease;
-  }
-
-  /* =========================
-     INTERFAZ DEL MICRÓFONO
-     ========================= */
-
-  .mic-ui{
-    position:absolute;
-
-    left:50%;
-    bottom:2%;
-
-    transform:translateX(-50%);
-
-    width:92%;
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-
-    gap:3px;
-
-    z-index:6;
-
-    background:rgba(20,10,15,.4);
-
-    border-radius:12px;
-
-    padding:6px 8px 7px;
-  }
-
-  .mic-row{
-    display:flex;
-    align-items:center;
-
-    gap:5px;
-
-    font-family:'Nunito',sans-serif;
-
-    font-size:.58rem;
-    line-height:1;
-
-    color:var(--cream);
-
-    opacity:.95;
-
-    white-space:nowrap;
-  }
-
-  .mic-dot{
-    width:7px;
-    height:7px;
-
-    flex:0 0 auto;
-
-    border-radius:50%;
-
-    background:#8fd18f;
-
-    box-shadow:
-      0 0 4px rgba(143,209,143,.9);
-  }
-
-  .mic-dot.off{
-    background:#c96a5a;
-
-    box-shadow:
-      0 0 4px rgba(201,106,90,.7);
-  }
-
-  .meter{
-    width:54px;
-    height:6px;
-
-    flex:0 0 auto;
-
-    background:rgba(0,0,0,.25);
-
-    border-radius:6px;
-
-    overflow:hidden;
-
-    border:1px solid rgba(255,255,255,.3);
-  }
-
-  .meter.hidden{
-    display:none;
-  }
-
-  .meter-fill{
-    height:100%;
-    width:0%;
-
-    background:
-      linear-gradient(
-        90deg,
-        #7fc97f,
-        #f6c453,
-        #e0553b
-      );
-
-    transition:width 60ms linear;
-  }
-
-  .hold-btn{
-    font-family:'Nunito',sans-serif;
-
-    font-weight:800;
-
-    font-size:.62rem;
-
-    line-height:1.15;
-
-    color:#fff;
-
-    background:
-      linear-gradient(
-        180deg,
-        var(--wine),
-        #5c1a26
-      );
-
-    border:1px solid rgba(255,255,255,.2);
-
-    border-radius:999px;
-
-    padding:5px 10px;
-
-    cursor:pointer;
-
-    user-select:none;
-
-    touch-action:none;
-
-    box-shadow:
-      0 3px 7px rgba(0,0,0,.35);
-  }
-
-  .hold-btn.pressed{
-    transform:translateY(2px);
-
-    box-shadow:
-      0 1px 3px rgba(0,0,0,.35);
-  }
-
-  /* =========================
-     OVERLAY DE DESEO
-     ========================= */
-
-  .wish-overlay{
-    position:absolute;
-    inset:0;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:rgba(20,5,25,.72);
-
-    opacity:0;
-
-    pointer-events:none;
-
-    transition:opacity 350ms ease;
-
-    z-index:10;
-  }
-
-  .wish-overlay.show{
-    opacity:1;
-
-    pointer-events:auto;
-  }
-
-  .wish-box{
-    width:76%;
-
-    text-align:center;
-
-    padding:22px 18px;
-
-    border-radius:20px;
-
-    background:var(--cream);
-
-    border:2px solid var(--ink);
-
-    box-shadow:
-      0 18px 50px rgba(0,0,0,.5);
-  }
-
-  .wish-title{
-    font-family:'Caveat',cursive;
-
-    font-size:2rem;
-
-    margin-bottom:8px;
-
-    color:var(--wine);
-  }
-
-  .wish-text{
-    font-size:.9rem;
-
-    line-height:1.45;
-  }
-
-  .relight-btn{
-    margin-top:14px;
-
-    border:2px solid var(--ink);
-
-    background:#fff8e9;
-
-    color:var(--ink);
-
-    padding:7px 13px;
-
-    border-radius:999px;
-
-    font-family:'Nunito',sans-serif;
-
-    font-weight:800;
-
-    cursor:pointer;
-  }
-
-  /* =========================
-     CONFETI
-     ========================= */
-
-  #confetti-canvas{
-    position:fixed;
-
-    inset:0;
-
-    width:100%;
-    height:100%;
-
-    pointer-events:none;
-
-    z-index:100;
-  }
-
-  /* =========================
-     RESPONSIVE
-     ========================= */
-
-  @media(max-width:700px){
-
-    :root{
-      --page-w:96vw;
-    }
-
-    .hint{
-      font-size:1.25rem;
-    }
-
-    .backbtn{
-      font-size:.75rem;
-    }
-  }
 </style>
 </head>
+
 
 <body>
 
 <div class="stage">
 
-  <button class="backbtn" id="backBtn">
-    ← volver
+
+  <!-- BOTÓN VOLVER -->
+
+  <button
+    class="backbtn"
+    id="backBtn"
+    type="button">
+
+    ‹ volver a la portada
+
   </button>
 
-  <div class="canvas" id="canvas">
+
+  <!-- =========================
+       TARJETA
+  ========================= -->
+
+  <div
+    class="canvas"
+    id="canvas">
+
 
     <!-- =========================
-         INTERIOR
-         ========================= -->
+         DOS PÁGINAS INTERIORES
+    ========================= -->
 
     <div class="diptych">
 
-      <!-- PÁGINA IZQUIERDA -->
-      <div class="page" id="envPage">
+
+      <!-- =========================
+           PÁGINA IZQUIERDA
+      ========================= -->
+
+      <div
+        class="page"
+        id="envPage">
 
         <div class="env-wrap">
 
-          <!-- IMAGEN DEL SOBRE -->
+
+          <!--
+            2 sobre.png
+          -->
+
           <img
             class="env-bg"
-            src="data:image/png;base64,AQUÍ_VA_LA_IMAGEN_DEL_SOBRE"
-            alt="Sobre"
+            src="2%20sobre.png"
+            alt="Sobre con carta"
           >
 
+
           <!-- CARTA -->
+
           <div class="letter-card">
+
             <img
-              src="data:image/png;base64,AQUÍ_VA_LA_IMAGEN_DE_LA_CARTA"
+              src="3%20car.png"
               alt="Carta"
             >
+
           </div>
 
+
           <div class="tap-label">
-            toca para abrir 💌
+
+            toca la carta para leerla
+
           </div>
 
         </div>
 
       </div>
 
-      <!-- PÁGINA DERECHA -->
-      <div class="page" id="cakePage">
+
+      <!-- =========================
+           PÁGINA DERECHA
+      ========================= -->
+
+      <div
+        class="page"
+        id="cakePage">
 
         <div class="cake-wrap">
 
-          <!-- IMAGEN DEL PASTEL -->
+
+          <!--
+            4 pastel.png
+          -->
+
           <img
             class="cake-bg"
-            src="data:image/png;base64,AQUÍ_VA_LA_IMAGEN_DEL_PASTEL"
-            alt="Pastel"
+            src="4%20pastel.png"
+            alt="Pastel de cumpleaños"
           >
 
-          <!-- LLAMA 1 -->
+
+          <!-- VELA 1 -->
+
           <div class="flame f1">
+
             <img
-              src="data:image/png;base64,AQUÍ_VA_LA_IMAGEN_DE_LA_LLAMA"
-              alt="Llama"
+              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKwAAADRCAYAAABRjVnHAABgFElEQVR42u29W8wl2ZUm9K21d8Q5/yWz7i5n/lWZ5Vu5ynbd2m5PT9+mYQYYgRgGjUDihYtmgB544gkkVI3UfkBoHhHySK1mXpBA8AYIBiHQjKZp5oKnx+1ud7fttuviqqxyXfPy//85EXuvxcPeEbEjYkecOFllO539Hytdmf9/Tpy4rL32Wt/61rfos+ZF3AevNYArACwAuovPKwAH4AaAzU/jAlQV1Jw6MYgMRAUODgDF3zEslVjzER48fhCPPfwwmAkiivfev4Vbd07hfA2FgIkAKFQVHg5ePTxqKICCCjAsoITSlFjZFR65coyHHj/C+2+f4r33buGD83dRuS0KsmAAgADwUMj0HcSSX+XfSLTssdn7wVgLlS8fQb5moFcI4f42t4USCyYoFIAmNh3fJw504wz8ck38jZ+a0SbnCQiIAKMGHgKBgAB49dj4c5xXa5yfeRweW6wOGevTEptzB1EPJ7676mC38Zjxv5TaTVgMRAQigIlh2IDAvTtH4GisNG+dO1+028LvY4M1AK78Gm795r8tP/rqVWzXNDDS3K2SeLvSW/ctHD75d/jx3/xnOP4bAF4D4H+SF0JEUO1MV1UAMJgMRBWiEk3FwwHY1Oe4fec2THGIcrXGal3g6GgFd1rBVQ6qfXMDEVQVConHVjAMIID3AqkFWgNMBtZaMHP06pSYFqG3Cn4Kr599D6taWNWrh5D1IbwZGqzOrG3txRSyNtCrAIqf1qU0u6JGj0jU+j9Quz8IFIrKbXFH7mB9YHB4uEJZWBwclthUBeq6hqpAmmMo2nBDoeH4RDAUPKl6hTjAV4Bhg6KwMGTA4NbwNS6qztN+VJ/a/6nG1borNOD7IYANYYBiyrsOf0aD/zY3gu+h+xFCF4HCx+iVo+FoDA1qnMkdnG42OLvtAFKsDw0O1musijWUml2EQMRxU2cwgiEasihNgcJYMDHEEeptCAlWZYGVWcFSEXckbQOK5lg/rZe9Twx29GdupU+tXLpXrof6oQGDASJ49Ykpe4hucb49xymfw67WWK0tDg9KeOdR+wrOu/bKGQYWBRRAySUKLmC4CF6UAfGE6lxgVwRrDNbFGnXlsPFnEPXBM7fJ393FsvlP7BfT3hcGq5nL1Yn3DaMwWmDMP/koJz0nbbYQBLNpjCVsy1u3xZ3zUxxsLVZlgfW6gIjH2aaAeImxL0cPbcBEKLiE5bjtE4OZIR7YnDscsAUbxro4QF041LKFaEj6oI1vbby9/MRj2fvCYFOjnVv3tCMJuxevKXhbaVKn1sM151tLhXN3hrPNGmVRYnXAWB8WODxbQ1VxXm2jh2UU1sAaC2tsG7saNjDWwItiu6nBFrAFw3CBVbFG7SuoA7bSLBcCUzBYaBMqaH7F677+98+QwU6FAjrhUYfhgLQ+694JCVrUQBVKCm4Br3C2BIJDhXMFTs8PsbIrFAclipXB8dEBvFec1RVIDZgs1uUKq6KEMQzvBZV3IfkqDNymRlXVIEMovQWRQVmscaQCgcemOoOAoBqQi4A8KKDSGe2Fh70LjzSzbukjr++f/BVpsw3HzJ4BiHZ7ikIg6rCtNzg9L7HaMA4PSxwcW1RSYL1ZQXzwseXK4vCwAIjgKg9fC0QV26pG7Wt4ddhuAe8c2BCYgcKusJZD1L5GJVs4dfAa3AOTCatL3U9sh7qvDHYulKcZz0sdSnCPL0SK59hsxdL+/8ZtUGXLB9XWJclymPGoS9wdnuFauuhoihXFuvDoj3e1njUdY3aeXjx8OLgKo+aCNYwirLA6qDEWtfwzkOcoPYVvApA0dMqxVj2JxNY3Vcx7GLPSQTqUPo2/r3X4th+MaG7SgMToSZpr9KjxlY2ON+ssFpZ2KMCxcrg0qU17qDCZuNATOBYvOaaAAK8CraujnGxdDiwGpADcC4gwzg6vAQ59xAROK0h6uCFwERgthB1UP3x11oYfwZelEnDUwO9Vw22D3F1Zxoy/iYqF4AUghq1bHG+3WCz2cJ7hbWMw0slVmsLw9wZIwNkwo1RVTjxcOoh8U8IMwTOe2yrCuIFhSmxsoc4sIcwbNpYWlRjSjcs5+5/nUvoBPdJ4UDbx6cZA1SahsDuZWPNbSOE6NUoVr5IAXgIPLzW2NZbbLYV6k1AFtZHjNU6FAnEEbYbgbh4LA6WwsFy4dsSQQw4VOC8Q1XX2G63KEyBSwcP4NAewVIZCTUOogTAgFsOwoWH3Ttm7XlPncZqdQbLvTfDHm2vl9vHpwCFbL6SCpt6i2rjIE5hCsLqwGB9UEA9UG08XK1QaYgu1PNukW3Q/r9C4b3DptpARGG5wEFxhMPiCAUXIISChkBBsLESFj0t7Xa4Sz3rfRXDasZQaYDNzhm23tNIQWNGlGRggQjDZKCRy0UQqHo41Nj6CptNjdVBgZIIq7UBLjFO79TYnntYYwLiwAaGg9FCKS5sidt9CDyYGKKCqq7D9xcrHJRHKIoSOCNs3BkqOYeBgUEJhoES2urYRdI18coxsHZhsRMhBCOwwH5Sa03u6lNEMKBkGxcoCbzWqH2F8/Mt1usC62MbvOxloHKhouVqiUVWBrMJjDB4qMaShCpIJVIOoyGroIpcW6U1DBMOV0cwhoFKIepRaw1DoQwc6bh7E2Xuf4MlglOSCuwrmEnyi0542GZDVRDWkPJI/fX4s0V3mia+Q3dgxAroBuyE6A0A1aRtKhJQq38sItPjFyg8lBAN9hwHqxKXtmvYQ0KxJqw2BlIRXB2Wt2XT8l+9Z6hqKEpQoDMyCKAAKxAYztdwvoKIYl2ucHBwiMIWUFGcuzs4l1OUWEemFyAUCOQhzv54Yq77wcNW/4guvfoDWqGEcvpAOW6kEitEE4ZMAti/oB+e/IfyxtUC+nUFnCAcjHaEHwWAYwJK1UixbhyggpR6zyndBc5h5L/kJ179Jzj+dQCvYwH/truG5m/BU7IatNUFCAQOW6mwdRWqrQevCHZFKI8IKoTzW4Crg1ECBMsGTjiECcqRghiqa5FKGz1mMOjKb6B1CEWMYRyuj8A1gyqGF4etVrDUcBcA/RjDg591g/UA3rxJ9m/eVHO37TEM4PpzOP3bBeTJY7jrhD78SYPQI/1ZAeBY+zeSFmDFBxBfQgDVci7rGJZpFRo5o5HXCgKTDVt6NGCBR6VbbOoK2/Ma9oBgyaI8CIFAtQW8B0QUpIBhG/kB1B0bConwH0VUwmuAwWqt4euAya7KFQ7Xh+GzSjitb4c2HeWYgAGgSEgn/cjO9r7wsABeXdwUNH6ZaA1VPADPJWqc8dKU/JwyMUEuqTO4W/4tdd0EFDBZJkKtTfLFAGkos9Zb3L51BnNAWB1bkAHMmrA+MoD32JwJRBH5sQYGNhpqqFwJEVSjF2cDUhf/Ha6q9hW0EogIClvgcHUU2npqg8pvUGsNSzaiBy7yDgYdXqp7Pbr7Jen6SJG9ApJiuTQwxnQTXuIZSKdj6Bz0tk8BQXUQx8ZNgloKD2JhxKN2FU7Pz3FwXsBXK5gDBpeE4oDhKgXOfYyFQ5nVkoWoh0cst6q2BhW6DahnaAIP9QIVBRNhVa5Q2nXY+tRDvITzJYAQig0gP7j4uAAX2uyfiUrXx4nzTm3xU+Txj7tQkZK706M21aYUBHPqcOrOcHq+xfktB18LiIHikFAcEmxBYBNwWMMG1hRgMrGO1oQdsf+LmoJFw2aIPWaqqLXCpj7H6fmdEO6sjnCpvIwDewgPgdPQFEmxG/ijAIj2whRjr5J2W/sSVtfdeMkpY/8onw7GKcGQFPAxlm3bu6E422xwensDe3SA4tCAS4VdE4qVgXpB7RVMDMsFrNTwVEdDRdsMGbxsIIJ7pElUiKVrX7femIlRmlX0tAIndQwzElYvIeHTLg8NLjzsAJ7fVZjAhFed69SdagL5qHlzaNwL2Y3dD9oBO1Dudahwvl2g5u3zlBta0AUZAimJKwODUxBEAlxauhCsGBEgreG8myXfIXuBKXII4gYMIEiTlvhfHuGs80ZiBkH5SEulw9gbdZw6uFVIBogMiIexAF04WH3hwuo9bI5I6WJn015Yp0xTl1slOP4jmLLdhfMarI4ElJMNGInDuf1FtXWw1cKwwAXhPIIqLcEuoO2/cWwgVEDEW4NVbXrtOXYTSu9K+yWuhMHOIArRmlKFKbEGofwKqilgpcg5sERX049rUae75ynvfCwAw87LAAMwwRafKxlhr3UaJs/qdG2pqLdN5J2LeFEgEEorW6lQr11cOcKEQVboDwm2HUgajOHxMqwgWUbvTX1Yp8GTejxBZKrJRBEPSpf4Wxzhk21AbPFQXGEy+UDKHkVCsmq8I3B7mQuXxjspEecqlDpgs/u8/6PIyRQ1Wx4wGRgyA4MKVj9duNwflpBnAamVgHYNWN9ZGGKUJZlNrBctHRBBYKBiQ+ekRgm/V0bGISiQqN3YDnE1NvtFt4JSrvGYXGEI3MZhorQwK4KD0CJel5VdXx9FwY7Yzz7GGmz+eo+q2ImxMihAvO5SHImqsFYKNTyO/phiHO3G4fzsxq+DtwqMsHDro8ZpqRo8CH5ajpqA+ykEJHYphMgsKYRsSkKaxLPGgocBSLAOQcvGpoa7SGOimMUXMYCRyhOIEnH+nizXhjsLqPVPf49l1RNxq/ah7butt5BA6+EpDU8ZPMmJkM+ahgItlWN8/MK1UYgVYhLzYqwftCgOGBQDA0McwgLYCJXNiRfjUEycasM00Fg1BotoGBmGGNhbaAgOufBMDgojnBgjrDiQzBskJjT2KcW9b16KmMDo71IuhYY5JwXbBRWdBCCkWY+pz8ezm3/q7VVeZHIK6CoalC5Gtttje2px2otKC2DLYGPgOIOoSgJ6gPVsIllvXcdtyAmR8whLPDK0aCki/9VOtILqC37qoZwgomxMgfBa6vEhSCt2kLqazUT014Y7HAbmsBbabnFTH5uWDVLdjlzFzYq2bQxGlCnueBBcAAsvHpUlcP5rQplYWAPCxhLUAKKNWN9aFCdK7xHMFb2qMRAY1dsExp0Hta0MWy4vrBhe/GoXQ1Si6JkmNhIpqKo1cNSgQN7BCcO4gUO26BloxGpIfQyzBSjvTDYBo5BoCiahMefNzxKoRwCwJ4VljSbuE2xxBjAClqu1V+P5GyZxS+0rc2qAztPFLVskzNUQEkCUkAmol2NbbuAy4rD5qzC6sDisLZgExIwuyasLxuIeLgagdgdCwUaBeCClxWAAofWsIGItM2HRPEcIh/Bq4OIB9jCmmDcIeAPpr3"
+
+              alt=""
             >
+
           </div>
 
-          <!-- LLAMA 2 -->
+
+          <!-- VELA 2 -->
+
           <div class="flame f2">
+
             <img
-              src="data:image/png;base64,AQUÍ_VA_LA_IMAGEN_DE_LA_LLAMA"
-              alt="Llama"
-            >
+              src="data:image/png;base64,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"
+              alt="">
           </div>
+
+
+          <!-- VELA 2 -->
+
+          <div class="flame f2">
+
+            <img
+              src="data:image/png;base64,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"
+              alt="">
+          </div>
+
+
+          <!-- MENSAJE -->
+
+          <div
+            class="wish-overlay"
+            id="wishOverlay">
+
+            <h2>
+              JAJAJJAJAJAJJ 🎂
+            </h2>
+
+            <button
+              class="relight-btn"
+              id="relightBtn"
+              type="button">
+
+              encender de nuevo
+
+            </button>
+
+          </div>
+
 
           <!-- MICRÓFONO -->
-          <div class="mic-ui">
+
+          <div
+            class="mic-ui"
+            id="micUi">
 
             <div class="mic-row">
 
-              <span class="mic-dot" id="micDot"></span>
-
-              <span id="micLabel">
-                preparando micrófono…
+              <span
+                class="mic-dot"
+                id="micDot">
               </span>
 
-              <div class="meter hidden" id="meterBox">
-                <div class="meter-fill" id="meterFill"></div>
+              <span id="micLabel">
+                escuchando…
+              </span>
+
+              <div
+                class="meter"
+                id="meterBox">
+
+                <div
+                  class="meter-fill"
+                  id="meterFill">
+                </div>
+
               </div>
 
             </div>
+
 
             <button
               class="hold-btn"
               id="holdBtn"
-            >
+              type="button">
+
               mantén presionado para soplar
+
             </button>
 
+
             <div
-              id="micNote"
-              style="font-size:.5rem;color:#f3e6c9;text-align:center;"
-            ></div>
-
-          </div>
-
-          <!-- DESEO -->
-          <div
-            class="wish-overlay"
-            id="wishOverlay"
-          >
-
-            <div class="wish-box">
-
-              <div class="wish-title">
-                ✨ ¡Deseo pedido! ✨
-              </div>
-
-              <div class="wish-text">
-                Que todos tus deseos se hagan realidad.
-              </div>
-
-              <button
-                class="relight-btn"
-                id="relightBtn"
-              >
-                volver a encender
-              </button>
-
+              class="mic-note"
+              id="micNote">
             </div>
 
           </div>
@@ -967,27 +1405,28 @@
 
     </div>
 
+
     <!-- =========================
          PORTADA
-         ========================= -->
+    ========================= -->
 
     <div
       class="cover-layer"
-      id="coverLayer"
-    >
+      id="coverLayer">
 
       <div class="cover-card">
 
+        <div class="cover-tape"></div>
+
         <!--
-          AQUÍ VA LA IMAGEN COMPLETA DE LA PORTADA
+          1 p.png
+          PORTADA
         -->
 
         <img
-          src="data:image/png;base64,AQUÍ_VA_LA_IMAGEN_DE_LA_PORTADA"
+          src="1%20p.png"
           alt="Portada — Melvin"
         >
-
-        <div class="cover-tape"></div>
 
       </div>
 
@@ -995,247 +1434,438 @@
 
   </div>
 
+
   <div
     class="hint"
-    id="hint"
-  >
-    toca para abrir ✨
+    id="hint">
+
+    click ✨
+
   </div>
 
 </div>
 
-<canvas id="confetti-canvas"></canvas>
+
+<canvas
+  id="confetti-canvas">
+</canvas>
+
 
 <script>
 
 (function(){
 
-  "use strict";
+"use strict";
 
-  /* =========================
-     PORTADA / LIBRO
-     ========================= */
 
-  var bookCanvas =
-    document.getElementById('canvas');
+/* =====================================================
+   PORTADA
+===================================================== */
 
-  var coverLayer =
-    document.getElementById('coverLayer');
+var bookCanvas =
+  document.getElementById(
+    'canvas'
+  );
 
-  var hint =
-    document.getElementById('hint');
+var coverLayer =
+  document.getElementById(
+    'coverLayer'
+  );
 
-  var backBtn =
-    document.getElementById('backBtn');
+var hint =
+  document.getElementById(
+    'hint'
+  );
 
-  var micStarted = false;
+var backBtn =
+  document.getElementById(
+    'backBtn'
+  );
 
-  function openBook(){
+var micStarted = false;
 
-    bookCanvas.classList.add('open');
 
-    hint.classList.add('hidden');
+/* ABRIR */
 
-    backBtn.classList.add('visible');
+function openBook(){
 
-    if(!micStarted){
+  bookCanvas.classList.add(
+    'open'
+  );
 
-      micStarted = true;
+  hint.classList.add(
+    'hidden'
+  );
 
-      setupMic();
+  backBtn.classList.add(
+    'visible'
+  );
+
+  if(!micStarted){
+
+    micStarted = true;
+
+    setupMic();
+
+  }
+
+}
+
+
+/* CERRAR */
+
+function closeBook(){
+
+  bookCanvas.classList.remove(
+    'open'
+  );
+
+  hint.classList.remove(
+    'hidden'
+  );
+
+  backBtn.classList.remove(
+    'visible'
+  );
+
+  closeLetter();
+
+}
+
+
+coverLayer.addEventListener(
+  'click',
+  openBook
+);
+
+
+backBtn.addEventListener(
+  'click',
+  closeBook
+);
+
+
+/* =====================================================
+   CARTA
+===================================================== */
+
+var envPage =
+  document.getElementById(
+    'envPage'
+  );
+
+
+function openLetter(){
+
+  envPage.classList.add(
+    'open'
+  );
+
+}
+
+
+function closeLetter(){
+
+  envPage.classList.remove(
+    'open'
+  );
+
+}
+
+
+envPage.addEventListener(
+  'click',
+  function(){
+
+    if(
+      envPage.classList.contains(
+        'open'
+      )
+    ){
+
+      closeLetter();
+
+    }else{
+
+      openLetter();
 
     }
 
   }
+);
 
-  function closeBook(){
 
-    bookCanvas.classList.remove('open');
+/* =====================================================
+   VELAS
+===================================================== */
 
-    hint.classList.remove('hidden');
-
-    backBtn.classList.remove('visible');
-
-    closeLetter();
-
-  }
-
-  coverLayer.addEventListener(
-    'click',
-    openBook
+var flameEls =
+  Array.prototype.slice.call(
+    document.querySelectorAll(
+      '.flame'
+    )
   );
 
-  backBtn.addEventListener(
-    'click',
-    closeBook
+var wishOverlay =
+  document.getElementById(
+    'wishOverlay'
+  );
+
+var relightBtn =
+  document.getElementById(
+    'relightBtn'
+  );
+
+var micLabel =
+  document.getElementById(
+    'micLabel'
+  );
+
+var micDot =
+  document.getElementById(
+    'micDot'
+  );
+
+var micNote =
+  document.getElementById(
+    'micNote'
+  );
+
+var meterFill =
+  document.getElementById(
+    'meterFill'
+  );
+
+var meterBox =
+  document.getElementById(
+    'meterBox'
+  );
+
+var holdBtn =
+  document.getElementById(
+    'holdBtn'
   );
 
 
-  /* =========================
-     CARTA
-     ========================= */
+var BLOW_HOLD_MS = 500;
 
-  var envPage =
-    document.getElementById('envPage');
+var blowStart = null;
 
-  function openLetter(){
+var extinguished = false;
 
-    envPage.classList.add('open');
+var micActive = false;
 
-  }
 
-  function closeLetter(){
+function setMeter(v){
 
-    envPage.classList.remove('open');
+  meterFill.style.width =
+    Math.round(
+      Math.min(
+        1,
+        Math.max(
+          0,
+          v
+        )
+      ) * 100
+    ) + '%';
 
-  }
+}
 
-  envPage.addEventListener(
-    'click',
+
+/* APAGAR VELAS */
+
+function extinguishAll(){
+
+  if(extinguished)
+    return;
+
+  extinguished = true;
+
+
+  flameEls.forEach(
+    function(f,i){
+
+      setTimeout(
+        function(){
+
+          f.style.transform =
+            (
+              i % 2 === 0
+              ?
+              'rotate(70deg) scaleY(.4)'
+              :
+              'rotate(-65deg) scaleY(.4)'
+            );
+
+          f.classList.add(
+            'out'
+          );
+
+        },
+        i * 90
+      );
+
+    }
+  );
+
+
+  setTimeout(
     function(){
 
-      if(
-        envPage.classList.contains('open')
-      ){
+      wishOverlay.classList.add(
+        'show'
+      );
 
-        closeLetter();
+      launchConfetti();
 
-      }else{
+    },
+    420
+  );
 
-        openLetter();
+}
 
-      }
+
+/* VOLVER A ENCENDER */
+
+function relight(){
+
+  extinguished = false;
+
+  blowStart = null;
+
+  wishOverlay.classList.remove(
+    'show'
+  );
+
+
+  flameEls.forEach(
+    function(f){
+
+      f.classList.remove(
+        'out'
+      );
+
+      f.classList.remove(
+        'blowing'
+      );
+
+      f.style.transform = '';
 
     }
   );
 
-
-  /* =========================
-     VELAS
-     ========================= */
-
-  var flameEls =
-    Array.prototype.slice.call(
-      document.querySelectorAll('.flame')
-    );
-
-  var wishOverlay =
-    document.getElementById('wishOverlay');
-
-  var relightBtn =
-    document.getElementById('relightBtn');
-
-  var micLabel =
-    document.getElementById('micLabel');
-
-  var micDot =
-    document.getElementById('micDot');
-
-  var micNote =
-    document.getElementById('micNote');
-
-  var meterFill =
-    document.getElementById('meterFill');
-
-  var meterBox =
-    document.getElementById('meterBox');
-
-  var holdBtn =
-    document.getElementById('holdBtn');
+}
 
 
-  var BLOW_HOLD_MS = 500;
-
-  var blowStart = null;
-
-  var extinguished = false;
-
-  var micActive = false;
+relightBtn.addEventListener(
+  'click',
+  relight
+);
 
 
-  function setMeter(v){
+/* =====================================================
+   DETECCIÓN DE SOPLIDO
+===================================================== */
 
-    meterFill.style.width =
-      Math.round(
-        Math.min(
-          1,
-          Math.max(0,v)
-        ) * 100
-      ) + '%';
+function feedBlow(
+  strength,
+  isActive
+){
+
+  if(extinguished){
+
+    setMeter(0);
+
+    return;
 
   }
 
 
-  function candlesLit(){
-
-    return flameEls.some(
-      function(f){
-
-        return !f.classList.contains('out');
-
-      }
-    );
-
-  }
+  setMeter(
+    strength
+  );
 
 
-  function extinguishAll(){
+  var now =
+    performance.now();
 
-    if(extinguished)
-      return;
 
-    extinguished = true;
+  if(isActive){
+
+    if(
+      blowStart === null
+    ){
+
+      blowStart = now;
+
+    }
+
+
+    var held =
+      now - blowStart;
+
+
+    var s =
+      Math.min(
+        1,
+        strength
+      );
+
 
     flameEls.forEach(
       function(f,i){
 
-        setTimeout(
-          function(){
-
-            f.style.transform =
-              (
-                i % 2 === 0
-                ? 'rotate(70deg) scaleY(0.4)'
-                : 'rotate(-65deg) scaleY(0.4)'
-              );
-
-            f.classList.add('out');
-
-          },
-          i * 90
+        f.classList.add(
+          'blowing'
         );
+
+
+        var dir =
+          i % 2 === 0
+          ? 1
+          : -1;
+
+
+        var bend =
+          s * 34 * dir;
+
+
+        var shrink =
+          1 - s * .12;
+
+
+        f.style.transform =
+          'rotate(' +
+          bend.toFixed(1) +
+          'deg) scaleY(' +
+          shrink.toFixed(2) +
+          ')';
 
       }
     );
 
-    setTimeout(
-      function(){
 
-        wishOverlay.classList.add('show');
+    if(
+      held >=
+      BLOW_HOLD_MS
+    ){
 
-        launchConfetti();
+      extinguishAll();
 
-      },
-      420
-    );
-
-  }
+    }
 
 
-  function relight(){
-
-    extinguished = false;
+  }else{
 
     blowStart = null;
 
-    wishOverlay.classList.remove('show');
 
     flameEls.forEach(
       function(f){
 
-        f.classList.remove('out');
-
-        f.classList.remove('blowing');
+        f.classList.remove(
+          'blowing'
+        );
 
         f.style.transform = '';
 
@@ -1244,652 +1874,652 @@
 
   }
 
-  relightBtn.addEventListener(
-    'click',
-    relight
+}
+
+
+/* =====================================================
+   BOTÓN DE SOPLAR
+===================================================== */
+
+var holding = false;
+
+
+function startHold(e){
+
+  if(e)
+    e.preventDefault();
+
+  holding = true;
+
+  holdBtn.classList.add(
+    'pressed'
   );
 
+}
 
-  function feedBlow(
-    strength,
-    isActive
-  ){
 
-    if(extinguished){
+function endHold(){
 
-      setMeter(0);
+  holding = false;
 
-      return;
+  holdBtn.classList.remove(
+    'pressed'
+  );
 
-    }
+}
 
-    setMeter(strength);
 
-    var now =
-      performance.now();
+holdBtn.addEventListener(
+  'mousedown',
+  startHold
+);
 
-    if(isActive){
 
-      if(blowStart === null)
-        blowStart = now;
+holdBtn.addEventListener(
+  'touchstart',
+  startHold,
+  {
+    passive:false
+  }
+);
 
-      var held =
-        now - blowStart;
 
-      var s =
-        Math.min(1,strength);
+window.addEventListener(
+  'mouseup',
+  endHold
+);
 
-      flameEls.forEach(
-        function(f,i){
 
-          f.classList.add(
-            'blowing'
-          );
+window.addEventListener(
+  'touchend',
+  endHold
+);
 
-          var dir =
-            (i % 2 === 0)
-            ? 1
-            : -1;
 
-          var bend =
-            s * 34 * dir;
+holdBtn.addEventListener(
+  'contextmenu',
+  function(e){
 
-          var shrink =
-            1 - s * 0.12;
-
-          f.style.transform =
-            'rotate(' +
-            bend.toFixed(1) +
-            'deg) scaleY(' +
-            shrink.toFixed(2) +
-            ')';
-
-        }
-      );
-
-      if(
-        held >= BLOW_HOLD_MS
-      ){
-
-        extinguishAll();
-
-      }
-
-    }else{
-
-      blowStart = null;
-
-      flameEls.forEach(
-        function(f){
-
-          f.classList.remove(
-            'blowing'
-          );
-
-          f.style.transform = '';
-
-        }
-      );
-
-    }
+    e.preventDefault();
 
   }
+);
 
 
-  /* =========================
-     BOTÓN PARA SOPLAR
-     ========================= */
+/* ESPACIO */
 
-  var holding = false;
+window.addEventListener(
+  'keydown',
+  function(e){
 
-  function startHold(e){
+    if(
+      e.code === 'Space'
+    ){
 
-    if(e)
       e.preventDefault();
 
-    holding = true;
+      startHold();
 
-    holdBtn.classList.add(
-      'pressed'
-    );
+    }
 
   }
+);
 
-  function endHold(){
 
-    holding = false;
+window.addEventListener(
+  'keyup',
+  function(e){
 
-    holdBtn.classList.remove(
-      'pressed'
-    );
+    if(
+      e.code === 'Space'
+    ){
+
+      endHold();
+
+    }
 
   }
-
-  holdBtn.addEventListener(
-    'mousedown',
-    startHold
-  );
-
-  holdBtn.addEventListener(
-    'touchstart',
-    startHold,
-    {passive:false}
-  );
-
-  window.addEventListener(
-    'mouseup',
-    endHold
-  );
-
-  window.addEventListener(
-    'touchend',
-    endHold
-  );
-
-  holdBtn.addEventListener(
-    'contextmenu',
-    function(e){
-      e.preventDefault();
-    }
-  );
+);
 
 
-  window.addEventListener(
-    'keydown',
-    function(e){
-
-      if(e.code === 'Space'){
-
-        e.preventDefault();
-
-        startHold();
-
-      }
-
-    }
-  );
+var holdStrength = 0;
 
 
-  window.addEventListener(
-    'keyup',
-    function(e){
+function holdLoop(){
 
-      if(e.code === 'Space'){
+  if(holding){
 
-        endHold();
-
-      }
-
-    }
-  );
-
-
-  var holdStrength = 0;
-
-  function holdLoop(){
-
-    if(holding){
-
-      holdStrength =
-        Math.min(
-          1,
-          holdStrength + .06
-        );
-
-    }else{
-
-      holdStrength =
-        Math.max(
-          0,
-          holdStrength - .12
-        );
-
-    }
-
-    if(!micActive){
-
-      feedBlow(
-        holdStrength,
-        holding
+    holdStrength =
+      Math.min(
+        1,
+        holdStrength + .06
       );
 
-    }
+  }else{
 
-    requestAnimationFrame(
-      holdLoop
+    holdStrength =
+      Math.max(
+        0,
+        holdStrength - .12
+      );
+
+  }
+
+
+  if(!micActive){
+
+    feedBlow(
+      holdStrength,
+      holding
     );
 
   }
+
 
   requestAnimationFrame(
     holdLoop
   );
 
+}
 
-  /* =========================
-     MICRÓFONO
-     ========================= */
 
-  var secureOk =
-    (
-      location.protocol === 'https:' ||
-      location.hostname === 'localhost' ||
-      location.hostname === '127.0.0.1'
+requestAnimationFrame(
+  holdLoop
+);
+
+
+/* =====================================================
+   MICRÓFONO
+===================================================== */
+
+var secureOk =
+  (
+    location.protocol === 'https:' ||
+    location.hostname === 'localhost' ||
+    location.hostname === '127.0.0.1'
+  );
+
+
+var hasGetUserMedia =
+  !!(
+    navigator.mediaDevices &&
+    navigator.mediaDevices.getUserMedia
+  );
+
+
+function setupMic(){
+
+  meterBox.classList.add(
+    'hidden'
+  );
+
+
+  if(!secureOk){
+
+    micLabel.textContent =
+      'micrófono no disponible';
+
+    micNote.textContent =
+      'Esta página necesita HTTPS. Usa GitHub Pages o el botón para soplar.';
+
+    micDot.classList.add(
+      'off'
     );
 
-  var hasGetUserMedia =
-    !!(
-      navigator.mediaDevices &&
-      navigator.mediaDevices.getUserMedia
+    return;
+
+  }
+
+
+  if(!hasGetUserMedia){
+
+    micLabel.textContent =
+      'micrófono no disponible';
+
+    micNote.textContent =
+      'Tu navegador no permite acceso al micrófono. Usa el botón para soplar.';
+
+    micDot.classList.add(
+      'off'
     );
 
+    return;
 
-  function setupMic(){
-
-    meterBox.classList.add(
-      'hidden'
-    );
-
-    if(!secureOk){
-
-      micLabel.textContent =
-        'micrófono no disponible';
-
-      micNote.textContent =
-        'Esta página necesita HTTPS para usar el micrófono. Ábrela desde el enlace alojado o usa el botón para soplar.';
-
-      micDot.classList.add(
-        'off'
-      );
-
-      return;
-
-    }
+  }
 
 
-    if(!hasGetUserMedia){
+  navigator.mediaDevices
+    .getUserMedia({
+      audio:true
+    })
 
-      micLabel.textContent =
-        'micrófono no disponible';
+    .then(
+      function(stream){
 
-      micNote.textContent =
-        'Tu navegador no permite acceso al micrófono aquí. Usa el botón para soplar.';
-
-      micDot.classList.add(
-        'off'
-      );
-
-      return;
-
-    }
+        var AudioCtx =
+          window.AudioContext ||
+          window.webkitAudioContext;
 
 
-    navigator.mediaDevices
-      .getUserMedia({
-        audio:true
-      })
-      .then(
-        function(stream){
+        var ctx =
+          new AudioCtx();
 
-          var AudioCtx =
-            window.AudioContext ||
-            window.webkitAudioContext;
 
-          var ctx =
-            new AudioCtx();
-
-          var source =
-            ctx.createMediaStreamSource(
-              stream
-            );
-
-          var analyser =
-            ctx.createAnalyser();
-
-          analyser.fftSize = 1024;
-
-          analyser.smoothingTimeConstant =
-            .6;
-
-          source.connect(
-            analyser
+        var source =
+          ctx.createMediaStreamSource(
+            stream
           );
 
-          var data =
-            new Uint8Array(
-              analyser.frequencyBinCount
-            );
 
-          micActive = true;
+        var analyser =
+          ctx.createAnalyser();
 
-          micLabel.textContent =
-            'escuchando… sopla';
 
-          micNote.textContent = '';
+        analyser.fftSize =
+          1024;
 
-          meterBox.classList.remove(
-            'hidden'
+
+        analyser.smoothingTimeConstant =
+          .6;
+
+
+        source.connect(
+          analyser
+        );
+
+
+        var data =
+          new Uint8Array(
+            analyser.frequencyBinCount
           );
 
-          var BLOW_THRESHOLD = .16;
+
+        micActive = true;
 
 
-          function tick(){
+        micLabel.textContent =
+          'escuchando… sopla';
 
-            analyser.getByteTimeDomainData(
-              data
-            );
 
-            var sumSquares = 0;
+        micNote.textContent = '';
 
-            for(
-              var i=0;
-              i<data.length;
-              i++
-            ){
 
-              var v =
-                (data[i] - 128) / 128;
+        meterBox.classList.remove(
+          'hidden'
+        );
 
-              sumSquares += v*v;
 
-            }
+        var BLOW_THRESHOLD =
+          .16;
 
-            var rms =
-              Math.sqrt(
-                sumSquares /
-                data.length
-              );
 
-            var strength =
-              Math.min(
-                1,
-                rms / .5
-              );
+        function tick(){
 
-            feedBlow(
-              strength,
-              rms > BLOW_THRESHOLD
-            );
+          analyser.getByteTimeDomainData(
+            data
+          );
 
-            requestAnimationFrame(
-              tick
-            );
+
+          var sumSquares = 0;
+
+
+          for(
+            var i=0;
+            i<data.length;
+            i++
+          ){
+
+            var v =
+              (
+                data[i] - 128
+              ) / 128;
+
+
+            sumSquares +=
+              v * v;
 
           }
 
-          tick();
 
-        }
-      )
-      .catch(
-        function(){
+          var rms =
+            Math.sqrt(
+              sumSquares /
+              data.length
+            );
 
-          micLabel.textContent =
-            'micrófono bloqueado';
 
-          micNote.textContent =
-            'No se pudo acceder al micrófono. Usa el botón para soplar.';
+          var strength =
+            Math.min(
+              1,
+              rms / .5
+            );
 
-          micDot.classList.add(
-            'off'
+
+          feedBlow(
+            strength,
+            rms >
+              BLOW_THRESHOLD
+          );
+
+
+          requestAnimationFrame(
+            tick
           );
 
         }
-      );
 
-  }
 
-
-  /* =========================
-     CONFETI
-     ========================= */
-
-  var canvas =
-    document.getElementById(
-      'confetti-canvas'
-    );
-
-  var cctx =
-    canvas.getContext('2d');
-
-  var confettiParticles = [];
-
-  var confettiRunning = false;
-
-
-  function resizeCanvas(){
-
-    canvas.width =
-      window.innerWidth;
-
-    canvas.height =
-      window.innerHeight;
-
-  }
-
-  window.addEventListener(
-    'resize',
-    resizeCanvas
-  );
-
-  resizeCanvas();
-
-
-  var CONFETTI_COLORS = [
-    '#d4a017',
-    '#7a2333',
-    '#f3e6c9',
-    '#8a3ffc',
-    '#e0553b',
-    '#ffffff'
-  ];
-
-
-  function launchConfetti(){
-
-    var rect =
-      document
-        .getElementById('cakePage')
-        .getBoundingClientRect();
-
-    var originX =
-      rect.left +
-      rect.width / 2;
-
-    var originY =
-      rect.top +
-      rect.height * .25;
-
-    var n = 90;
-
-
-    for(
-      var i=0;
-      i<n;
-      i++
-    ){
-
-      confettiParticles.push({
-
-        x:
-          originX +
-          (Math.random()-.5) *
-          rect.width * .6,
-
-        y:
-          originY +
-          (Math.random()-.5) * 40,
-
-        vx:
-          (Math.random()-.5) * 6,
-
-        vy:
-          -Math.random()*6 - 3,
-
-        g:
-          .14 +
-          Math.random()*.08,
-
-        size:
-          4 +
-          Math.random()*5,
-
-        color:
-          CONFETTI_COLORS[
-            (Math.random() *
-            CONFETTI_COLORS.length)|0
-          ],
-
-        rot:
-          Math.random() *
-          Math.PI * 2,
-
-        vr:
-          (Math.random()-.5)*.3,
-
-        life:0,
-
-        maxLife:
-          140 +
-          Math.random()*60
-
-      });
-
-    }
-
-
-    if(!confettiRunning){
-
-      confettiRunning = true;
-
-      requestAnimationFrame(
-        confettiLoop
-      );
-
-    }
-
-  }
-
-
-  function confettiLoop(){
-
-    cctx.clearRect(
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
-
-    for(
-      var i=0;
-      i<confettiParticles.length;
-      i++
-    ){
-
-      var p =
-        confettiParticles[i];
-
-      if(
-        p.life >
-        p.maxLife
-      )
-        continue;
-
-      p.life++;
-
-      p.vy += p.g;
-
-      p.x += p.vx;
-
-      p.y += p.vy;
-
-      p.rot += p.vr;
-
-
-      var fade =
-        1 -
-        Math.max(
-          0,
-          (
-            p.life -
-            p.maxLife*.7
-          ) /
-          (p.maxLife*.3)
-        );
-
-
-      if(
-        p.y <
-        canvas.height + 20
-      ){
-
-        cctx.save();
-
-        cctx.translate(
-          p.x,
-          p.y
-        );
-
-        cctx.rotate(
-          p.rot
-        );
-
-        cctx.globalAlpha =
-          Math.max(
-            0,
-            fade
-          );
-
-        cctx.fillStyle =
-          p.color;
-
-        cctx.fillRect(
-          -p.size/2,
-          -p.size/3,
-          p.size,
-          p.size*.6
-        );
-
-        cctx.restore();
+        tick();
 
       }
+    )
 
-    }
+    .catch(
+      function(){
+
+        micLabel.textContent =
+          'micrófono bloqueado';
+
+        micNote.textContent =
+          'No se pudo acceder al micrófono. Usa el botón para soplar.';
+
+        micDot.classList.add(
+          'off'
+        );
+
+      }
+    );
+
+}
 
 
-    confettiParticles =
-      confettiParticles.filter(
-        function(p){
+/* =====================================================
+   CONFETI
+===================================================== */
 
-          return p.life <= p.maxLife;
+var confettiCanvas =
+  document.getElementById(
+    'confetti-canvas'
+  );
 
-        }
+
+var cctx =
+  confettiCanvas.getContext(
+    '2d'
+  );
+
+
+var confettiParticles = [];
+
+var confettiRunning = false;
+
+
+function resizeCanvas(){
+
+  confettiCanvas.width =
+    window.innerWidth;
+
+  confettiCanvas.height =
+    window.innerHeight;
+
+}
+
+
+window.addEventListener(
+  'resize',
+  resizeCanvas
+);
+
+
+resizeCanvas();
+
+
+var CONFETTI_COLORS = [
+
+  '#d4a017',
+  '#7a2333',
+  '#f3e6c9',
+  '#8a3ffc',
+  '#e0553b',
+  '#ffffff'
+
+];
+
+
+function launchConfetti(){
+
+  var rect =
+    document
+      .getElementById(
+        'cakePage'
+      )
+      .getBoundingClientRect();
+
+
+  var originX =
+    rect.left +
+    rect.width / 2;
+
+
+  var originY =
+    rect.top +
+    rect.height * .25;
+
+
+  var n = 90;
+
+
+  for(
+    var i=0;
+    i<n;
+    i++
+  ){
+
+    confettiParticles.push({
+
+      x:
+        originX +
+        (
+          Math.random()-.5
+        ) *
+        rect.width *
+        .6,
+
+      y:
+        originY +
+        (
+          Math.random()-.5
+        ) * 40,
+
+      vx:
+        (
+          Math.random()-.5
+        ) * 6,
+
+      vy:
+        -Math.random()*6 - 3,
+
+      g:
+        .14 +
+        Math.random()*.08,
+
+      size:
+        4 +
+        Math.random()*5,
+
+      color:
+        CONFETTI_COLORS[
+          (
+            Math.random() *
+            CONFETTI_COLORS.length
+          ) | 0
+        ],
+
+      rot:
+        Math.random() *
+        Math.PI * 2,
+
+      vr:
+        (
+          Math.random()-.5
+        ) * .3,
+
+      life:0,
+
+      maxLife:
+        140 +
+        Math.random()*60
+
+    });
+
+  }
+
+
+  if(!confettiRunning){
+
+    confettiRunning = true;
+
+    requestAnimationFrame(
+      confettiLoop
+    );
+
+  }
+
+}
+
+
+function confettiLoop(){
+
+  cctx.clearRect(
+    0,
+    0,
+    confettiCanvas.width,
+    confettiCanvas.height
+  );
+
+
+  for(
+    var i=0;
+    i<confettiParticles.length;
+    i++
+  ){
+
+    var p =
+      confettiParticles[i];
+
+
+    if(
+      p.life >
+      p.maxLife
+    )
+      continue;
+
+
+    p.life++;
+
+    p.vy += p.g;
+
+    p.x += p.vx;
+
+    p.y += p.vy;
+
+    p.rot += p.vr;
+
+
+    var fade =
+      1 -
+      Math.max(
+        0,
+        (
+          p.life -
+          p.maxLife*.7
+        ) /
+        (
+          p.maxLife*.3
+        )
       );
 
 
     if(
-      confettiParticles.length > 0
+      p.y <
+      confettiCanvas.height + 20
     ){
 
-      requestAnimationFrame(
-        confettiLoop
+      cctx.save();
+
+
+      cctx.translate(
+        p.x,
+        p.y
       );
 
-    }else{
 
-      confettiRunning = false;
-
-      cctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
+      cctx.rotate(
+        p.rot
       );
+
+
+      cctx.globalAlpha =
+        Math.max(
+          0,
+          fade
+        );
+
+
+      cctx.fillStyle =
+        p.color;
+
+
+      cctx.fillRect(
+        -p.size/2,
+        -p.size/3,
+        p.size,
+        p.size*.6
+      );
+
+
+      cctx.restore();
 
     }
 
   }
+
+
+  confettiParticles =
+    confettiParticles.filter(
+      function(p){
+
+        return (
+          p.life <=
+          p.maxLife
+        );
+
+      }
+    );
+
+
+  if(
+    confettiParticles.length > 0
+  ){
+
+    requestAnimationFrame(
+      confettiLoop
+    );
+
+  }else{
+
+    confettiRunning = false;
+
+    cctx.clearRect(
+      0,
+      0,
+      confettiCanvas.width,
+      confettiCanvas.height
+    );
+
+  }
+
+}
 
 })();
 
